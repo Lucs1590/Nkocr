@@ -1,1 +1,1 @@
-from ocr_table.ocr_table import OCRTable
+from src.ocr_table.ocr_table import OCRTable

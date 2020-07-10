@@ -1,1 +1,1 @@
-from auxiliary.auxiliary import Auxiliary
+from src.auxiliary.auxiliary import Auxiliary
