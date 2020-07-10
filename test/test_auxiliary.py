@@ -20,5 +20,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(input_type,2)
     
     def test_url_type(self):
-        ...
+        url = "https://img.icons8.com/all/500/general-ocr.png"
+        input_type = aux.get_input_type(url)
+        self.assertEqual(input_type,1)
     
