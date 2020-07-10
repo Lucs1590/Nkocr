@@ -1,9 +1,16 @@
+import requests
+import pytesseract
+
+from PIL import Image
+from time import time
+from io import BytesIO
+from pathlib import Path
+
+from src.auxiliary import Auxiliary
+
 class OCRTable(object):
-    def __init__(self, image):
+    def __init__(self, image, show_performace: bool):
         ...
 
-    def get_input_type(self, _input):
-        ...
-    
-    def run_ocr(self, image):
+    def process_image(self, image, _type):
         ...
