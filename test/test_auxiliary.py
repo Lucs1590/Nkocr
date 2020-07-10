@@ -1,6 +1,8 @@
 import unittest
-from auxiliary import Auxiliary
+from src.auxiliary import Auxiliary
 
 
-class TestTable(unittest.TestCase):
-    ...
+class TestAuxiliary(unittest.TestCase):
+    
+    def test_of_tests(self):
+        self.assertTrue(True)
