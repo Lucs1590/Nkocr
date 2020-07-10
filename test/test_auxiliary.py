@@ -24,3 +24,7 @@ class TestAuxiliary(unittest.TestCase):
         input_type = aux.get_input_type(url)
         self.assertEqual(input_type,1)
     
+    def test_wrong_type(self):
+        string = "a"
+        with self.assertRaises(TypeError) as error:
+            aux.get_input_type(string)
