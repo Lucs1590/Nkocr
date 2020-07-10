@@ -8,7 +8,7 @@ from pathlib import Path
 
 from src.auxiliary import Auxiliary
 
-class OCRTable(object):
+class ocr_table(object):
     def __init__(self, image, show_performace: bool = False):
         self.aux = Auxiliary()
 
@@ -27,3 +27,12 @@ class OCRTable(object):
             return self.run_img_ocr(image)
         else:
             raise NotImplementedError("Method to this specific processing isn't implemented yet!")
+
+    def run_online_img_ocr(self, image):
+        ...
+
+    def run_path_img_ocr(self, image):
+        ...
+
+    def run_img_ocr(self, image):
+        ...
