@@ -15,7 +15,9 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(input_type,3)
     
     def test_path_type(self):
-        ...
+        path = "test/ocr.png"
+        input_type = aux.get_input_type(path)
+        self.assertEqual(input_type,2)
     
     def test_url_type(self):
         ...
