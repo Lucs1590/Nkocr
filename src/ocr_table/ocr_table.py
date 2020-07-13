@@ -49,4 +49,5 @@ class ocr_table(object):
         return phrase
 
     def run_img_ocr(self, image):
-        ...
+        phrase = pytesseract.image_to_string(image, lang=self.lang)
+        return phrase
