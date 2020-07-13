@@ -36,8 +36,10 @@ class ocr_table(object):
             raise NotImplementedError("Method to this specific processing isn't implemented yet!")
 
     def run_online_img_ocr(self, image):        
-        ...
-
+        response = requests.get(image)
+        image = Image.open(BytesIO(response.content))
+        phrase = pytesseract.image_to_string(image, lang=self.lang)
+        return phrase
 
     def run_path_img_ocr(self, image):
         ...
