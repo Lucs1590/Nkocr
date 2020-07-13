@@ -8,14 +8,15 @@ from pathlib import Path
 
 from src.auxiliary import Auxiliary
 
+
 class ocr_table(object):
     def __init__(self, image, language: str = "por", show_performace: bool = False):
         self.define_global_vars(language, show_performace)
         started_time = time()
-        
+
         input_type = self.aux.get_input_type(image)
         self.text = self.process_image(image, input_type)
-        
+
         self.execution_time = time() - started_time
 
     def __repr__(self):
@@ -27,7 +28,8 @@ class ocr_table(object):
             self.lang = language
             self.show_performace = show_performace
         else:
-            raise TypeError("language variable must need be a string and show_perf. bool!")
+            raise TypeError(
+                "language variable must need be a string and show_perf. bool!")
 
     def process_image(self, image, _type):
         if _type == 1:
@@ -37,9 +39,10 @@ class ocr_table(object):
         elif _type == 3:
             return self.run_img_ocr(image)
         else:
-            raise NotImplementedError("Method to this specific processing isn't implemented yet!")
+            raise NotImplementedError(
+                "Method to this specific processing isn't implemented yet!")
 
-    def run_online_img_ocr(self, image):        
+    def run_online_img_ocr(self, image):
         response = requests.get(image)
         image = Image.open(BytesIO(response.content))
         phrase = pytesseract.image_to_string(image, lang=self.lang)
