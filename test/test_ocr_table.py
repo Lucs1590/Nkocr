@@ -8,8 +8,8 @@ class TestTable(unittest.TestCase):
         self.assertTrue(True)
 
     def test_path_processing(self):
-        text = ocr_table("test/ocr.png",False)
-        type_output = isinstance(text,str)
+        text = ocr_table("test/ocr.png")
+        type_output = isinstance(text.text,str)
         self.assertTrue(type_output)
 
     def test_url_processing(self):
