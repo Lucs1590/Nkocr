@@ -22,3 +22,11 @@ class TestTable(unittest.TestCase):
         text = ocr_table(image)
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
+   
+    def test_execution_time(self):
+        text_and_time = ocr_table("test/ocr.png",show_performace=True)
+        has_time = text_and_time.execution_time and \
+                   text_and_time.show_performace and \
+                   len(eval(repr(text_and_time))) > 1
+        self.assertTrue(has_time)
+
