@@ -23,7 +23,10 @@ class ocr_table(object):
 
     def define_global_vars(self, language):
         self.aux = Auxiliary()
-        self.lang = language
+        if isinstance(language, str):
+            self.lang = language 
+        else:
+            raise TypeError("language variable must need be a string!")
 
     def process_image(self, image, _type):
         if _type == 1:
@@ -42,7 +45,8 @@ class ocr_table(object):
         return phrase
 
     def run_path_img_ocr(self, image):
-        ...
+        phrase = pytesseract.image_to_string(Image.open(image), lang=self.lang)
+        return phrase
 
     def run_img_ocr(self, image):
         ...
