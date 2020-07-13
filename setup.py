@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def read(file_name):
-    with open(os.path.join(Path(os.path.dirname(__file__)).parent, file_name)) as _file:
+    with open(os.path.join(Path(os.path.dirname(__file__)), file_name)) as _file:
         return _file.read()
 
 long_description = read("README.md")
@@ -18,8 +18,10 @@ setup(
     license = 'Apache License 2.0',
     author = 'NK Sistemas de Informacao em Saude',
     author_email="ti@nkodontologia.com.br",
-    packages = find_packages(),
-    include_package_data = True,
+    
+    py_modules=["nkocr"],
+    package_dir={"":"src"},
+
     long_description = long_description,
     keywords = ['ocr', 'tesseract-ocr', 'nk',
               'python3', 'python-3', 'food-products'],

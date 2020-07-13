@@ -6,7 +6,7 @@ from time import time
 from io import BytesIO
 from pathlib import Path
 
-from src.auxiliary import Auxiliary
+from auxiliary import Auxiliary
 
 class ocr_table(object):
     def __init__(self, image, language: str = "por", show_performace: bool = False):
