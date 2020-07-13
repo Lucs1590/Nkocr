@@ -1,6 +1,6 @@
 import unittest
 from src.ocr_table import ocr_table
-
+from PIL import Image
 
 class TestTable(unittest.TestCase):
     
@@ -18,4 +18,7 @@ class TestTable(unittest.TestCase):
         self.assertTrue(type_output)
 
     def test_image_processing(self):
-        ...
+        image = Image.open("test/ocr.png")
+        text = ocr_table(image)
+        type_output = isinstance(text.text, str)
+        self.assertTrue(type_output)
