@@ -31,7 +31,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: Apache License 2.0',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
         'Topic :: Communications :: Email',
     ],
