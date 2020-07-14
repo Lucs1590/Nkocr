@@ -28,5 +28,5 @@ class TestAuxiliary(unittest.TestCase):
 
     def test_wrong_type(self):
         string = 'a'
-        with self.assertRaises(TypeError) as error:
+        with self.assertRaises(TypeError):
             aux.get_input_type(string)

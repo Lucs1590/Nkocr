@@ -33,5 +33,5 @@ class TestTable(unittest.TestCase):
 
     def test_wrong_type(self):
         image = Image.open('test/ocr.png')
-        with self.assertRaises(TypeError) as error:
+        with self.assertRaises(TypeError):
             ocr_table(image, True)
