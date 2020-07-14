@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(
     name='nkocr',
-    version='0.0.1',
+    version='0.0.2',
     description='This is a module to make specifics OCRs \
          at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',
@@ -39,12 +39,13 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'tesseract == 0.1.3',
-        'requests ~= 2.24.0',
-        'wheel ~= 0.34.2',
-        'pillow ~= 7.2.0',
-        'numpy ~= 1.18.5',
-        'opencv-python ~= 4.3'
+        'tesseract==0.1.3',
+        'pytesseract==0.3.4',
+        'requests==2.24.0',
+        'wheel==0.34.2',
+        'pillow==7.2.0',
+        'numpy==1.18.5',
+        'opencv-contrib-python==4.3.0.36'
     ],
     extras_require={
         'dev': [
