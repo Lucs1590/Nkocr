@@ -10,7 +10,7 @@ from src.auxiliary import Auxiliary
 
 
 class ocr_table(object):
-    def __init__(self, image, language: str = "por", show_performace: bool = False):
+    def __init__(self, image, language: str = 'por', show_performace: bool = False):
         self.define_global_vars(language, show_performace)
         started_time = time()
 
@@ -29,7 +29,7 @@ class ocr_table(object):
             self.show_performace = show_performace
         else:
             raise TypeError(
-                "language variable must need be a string and show_perf. bool!")
+                'language variable must need be a string and show_perf. bool!')
 
     def process_image(self, image, _type):
         if _type == 1:
@@ -40,7 +40,7 @@ class ocr_table(object):
             return self.run_img_ocr(image)
         else:
             raise NotImplementedError(
-                "Method to this specific processing isn't implemented yet!")
+                'Method to this specific processing isn't implemented yet!')
 
     def run_online_img_ocr(self, image):
         response = requests.get(image)
