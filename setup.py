@@ -4,7 +4,8 @@ from setuptools import setup
 
 
 def read(file_name):
-    with open(os.path.join(Path(os.path.dirname(__file__)), file_name)) as _file:
+    with open(os.path.join(Path(os.path.dirname(__file__)), file_name))\
+            as _file:
         return _file.read()
 
 
@@ -13,7 +14,8 @@ long_description = read('README.md')
 setup(
     name='nkocr',
     version='0.0.1',
-    description='This is a module to make specifics OCRs at food products and nutricional tables.',
+    description='This is a module to make specifics OCRs \
+         at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',
     download_url='https://github.com/Lucs1590/Nkocr',
     license='Apache License 2.0',

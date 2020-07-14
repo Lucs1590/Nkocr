@@ -13,7 +13,8 @@ class Auxiliary(object):
             return 3
         else:
             raise TypeError(
-                'invalid input, try to send an url, path, numpy.ndarray or PIL.Image.')
+                'invalid input,\
+                     try to send an url, path, numpy.ndarray or PIL.Image.')
 
     def is_url(self, _input):
         if isinstance(_input, str):
@@ -52,5 +53,10 @@ class Auxiliary(object):
             type(_input)) == '<class 'PIL.TiffImagePlugin.TiffImageFile'>'
 
         return True \
-            if plt_bmp_type or plt_gif_type or plt_jpg_type or plt_png_type or plt_ppm_type or plt_tiff_type else \
+            if plt_bmp_type or \
+            plt_gif_type or \
+            plt_jpg_type or \
+            plt_png_type or \
+            plt_ppm_type or \
+            plt_tiff_type else \
             False
