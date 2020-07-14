@@ -38,19 +38,26 @@ class Auxiliary(object):
             return False
 
     def is_image(self, _input):
-        numpy_type = str(type(_input)) == '<class \'numpy.ndarray\'>'
+        numpy_type = str(type(_input)) == \
+            '<class '"'"'numpy.ndarray'"'"'>'
         plt_bmp_type = str(
-            type(_input)) == '<class \'PIL.BmpImagePlugin.BmpImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.BmpImagePlugin.BmpImageFile'"'"'>'
         plt_gif_type = str(
-            type(_input)) == '<class \'PIL.GifImagePlugin.GifImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.GifImagePlugin.GifImageFile'"'"'>'
         plt_jpg_type = str(
-            type(_input)) == '<class \'PIL.JpegImagePlugin.JpegImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.JpegImagePlugin.JpegImageFile'"'"'>'
         plt_png_type = str(
-            type(_input)) == '<class \'PIL.PngImagePlugin.PngImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.PngImagePlugin.PngImageFile'"'"'>'
         plt_ppm_type = str(
-            type(_input)) == '<class \'PIL.PpmImagePlugin.PpmImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.PpmImagePlugin.PpmImageFile'"'"'>'
         plt_tiff_type = str(
-            type(_input)) == '<class \'PIL.TiffImagePlugin.TiffImageFile\'>'
+            type(_input)) == \
+            '<class '"'"'PIL.TiffImagePlugin.TiffImageFile'"'"'>'
 
         return True \
             if numpy_type or \
