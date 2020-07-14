@@ -53,7 +53,8 @@ class Auxiliary(object):
             type(_input)) == '<class \'PIL.TiffImagePlugin.TiffImageFile\'>'
 
         return True \
-            if plt_bmp_type or \
+            if numpy_type or \
+            plt_bmp_type or \
             plt_gif_type or \
             plt_jpg_type or \
             plt_png_type or \
