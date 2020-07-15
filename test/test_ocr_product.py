@@ -1,5 +1,5 @@
 import unittest
-# from src.ocr_product import OCRProduct
+from src.nkocr.ocr_product import ocr_product
 
 
 class TestProduct(unittest.TestCase):
