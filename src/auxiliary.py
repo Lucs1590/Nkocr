@@ -13,8 +13,7 @@ class Auxiliary(object):
             return 3
         else:
             raise TypeError(
-                'invalid input,\
-                     try to send an url, path, numpy.ndarray or PIL.Image.')
+                'invalid input,try to send an url, path, numpy.ndarray or PIL.Image.')
 
     def is_url(self, _input):
         if isinstance(_input, str):

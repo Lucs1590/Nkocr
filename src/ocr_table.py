@@ -44,8 +44,7 @@ class ocr_table(object):
             return self.run_img_ocr(image)
         else:
             raise NotImplementedError(
-                'method to this specific \
-                    processing isn'"'"'t implemented yet!')
+                'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image):
         response = requests.get(image)
