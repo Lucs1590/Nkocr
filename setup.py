@@ -44,7 +44,7 @@ setup(
         'requests==2.24.0',
         'wheel==0.34.2',
         'pillow==7.2.0',
-        'numpy==1.18.5',
+        'numpy==1.19.0',
         'opencv-contrib-python>=4.3.*'
     ],
     extras_require={
