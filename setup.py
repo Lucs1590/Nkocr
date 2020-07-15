@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(
     name='nkocr',
-    version='0.1.0',
+    version='0.2.0',
     description='This is a module to make specifics OCRs \
          at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',
@@ -22,7 +22,7 @@ setup(
     author='NK Sistemas de Informacao em Saude',
     author_email='ti@nkodontologia.com.br',
 
-    py_modules=['nkocr'],
+    py_modules=['nkocr/auxiliary', 'nkocr/ocr_products', 'nkocr/ocr_table'],
     package_dir={'': 'src'},
 
     long_description=long_description,
