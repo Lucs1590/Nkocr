@@ -22,7 +22,7 @@ setup(
     author='NK Sistemas de Informacao em Saude',
     author_email='ti@nkodontologia.com.br',
 
-    py_modules=['nkocr'],
+    py_modules=['nkocr/auxiliary', 'nkocr/ocr_products', 'nkocr/ocr_table'],
     package_dir={'': 'src'},
 
     long_description=long_description,
