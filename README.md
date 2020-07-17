@@ -1,5 +1,8 @@
 # Nkocr
 
+![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
+![Upload Python Package](https://github.com/Lucs1590/Nkocr/workflows/Upload%20Python%20Package/badge.svg?branch=v0.2.2)
+
 This is a module to make specifics OCRs at food products and nutricional tables.
 
 
