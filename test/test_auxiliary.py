@@ -1,6 +1,6 @@
 import unittest
 from PIL import Image
-from src.nkocr.auxiliary import Auxiliary
+from src.auxiliary import Auxiliary
 
 
 aux = Auxiliary()

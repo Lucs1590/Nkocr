@@ -1,5 +1,5 @@
 import unittest
-from src.nkocr.ocr_product import ocr_product
+from src.ocr_product import ocr_product
 from PIL import Image
 
 
