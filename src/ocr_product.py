@@ -5,10 +5,10 @@ from PIL import Image
 from time import time
 from io import BytesIO
 
-from src.nkocr.auxiliary import Auxiliary
+from auxiliary import Auxiliary
 
 
-class ocr_table(object):
+class ocr_product(object):
     def __init__(self,
                  image,
                  language: str = 'por',
