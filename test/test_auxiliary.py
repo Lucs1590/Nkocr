@@ -47,7 +47,9 @@ class TestAuxiliary(unittest.TestCase):
         ...
 
     def test_remove_alpha_channel(self):
-        ...
+        image = get_CV_image()
+        image = aux.remove_alpha_channel(image)
+        self.assertEqual(image.shape[-1], 3)
 
     def test_brightness_contrast_optmization(self):
         ...
