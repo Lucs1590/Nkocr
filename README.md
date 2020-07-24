@@ -35,8 +35,6 @@ $ sudo apt install python3-opencv
 ```
  > To more informations, access: https://docs.opencv.org/master/da/df6/tutorial_py_table_of_contents_setup.html
 ---
-<br>
-
 # Installation
 You can install this package with:
 ```bash
