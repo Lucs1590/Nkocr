@@ -25,10 +25,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Install Tesseract OCR and OpenCV
+    - name: Install Tesseract OCR
       run: |
        sudo apt install tesseract-ocr libtesseract-dev tesseract-ocr-por
-       sudo apt install python3-opencv
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
