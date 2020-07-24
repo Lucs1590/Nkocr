@@ -68,4 +68,8 @@ class TestAuxiliary(unittest.TestCase):
         ...
 
     def test_binarize_image(self):
-        ...
+        image = get_CV_image()
+        expected_shape = (image.shape[0], image.shape[1])
+        bin_image = aux.binarize_image(image)
+        bin_image_shape = bin_image.shape
+        self.assertEqual(bin_image_shape, expected_shape)
