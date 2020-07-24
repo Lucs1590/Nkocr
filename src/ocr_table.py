@@ -70,7 +70,7 @@ class ocr_table(object):
         colors = self.aux.run_kmeans(image, 2)
         image = self.remove_lines(image, colors)
         image = self.aux.image_resize(image, height=image.shape[0]*4)
-        image = self.aux.open_close(image, cv2.MORPH_CLOSE)
+        image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE)
         image = self.aux.brightness_contrast_optimization(image, 1, 0.5)
         image = self.aux.unsharp_mask(image, (3, 3), 0.5, 1.5, 0)
         image = self.aux.dilate(image, 1)
