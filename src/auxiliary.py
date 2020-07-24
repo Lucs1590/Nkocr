@@ -89,8 +89,8 @@ class Auxiliary(object):
         image = image.reshape((image.shape[0] * image.shape[1], 3))
         clt = KMeans(n_clusters=clusters)
         clt.fit(image)
-        hist = centroid_histogram(clt)
-        colors = sort_colors(hist, clt.cluster_centers_)
+        hist = self.centroid_histogram(clt)
+        colors = self.sort_colors(hist, clt.cluster_centers_)
         return colors
 
     def centroid_histogram(self, clt):
