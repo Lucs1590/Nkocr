@@ -1,5 +1,8 @@
 import unittest
 import cv2
+
+import numpy as np
+
 from PIL import Image
 from src.auxiliary import Auxiliary
 
@@ -56,7 +59,14 @@ class TestAuxiliary(unittest.TestCase):
         ...
 
     def test_sort_colors(self):
-        ...
+        hist = np.array([0.2, 0.3, 0.5])
+        colors = np.array([[255, 0, 0], [0, 255, 0], [0, 0, 255]])
+        sorted_colors = aux.sort_colors(hist, colors)
+        fst_color = (list(sorted_colors[0][0]) == colors[-1]).all()
+        snd_color = (list(sorted_colors[1][0]) == colors[-2]).all()
+        trd_color = (list(sorted_colors[2][0]) == colors[0]).all()
+        result = True if fst_color and snd_color and trd_color else False
+        self.assertTrue(result)
 
     def test_resize_image(self):
         image = get_CV_image()
