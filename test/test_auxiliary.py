@@ -54,9 +54,6 @@ class TestAuxiliary(unittest.TestCase):
         image = aux.remove_alpha_channel(image)
         self.assertEqual(image.shape[-1], 3)
 
-    def test_brightness_contrast_optmization(self):
-        ...
-
     def test_run_k_means(self):
         image = get_CV_image()
         colors = aux.run_kmeans(image, 1)
@@ -84,12 +81,6 @@ class TestAuxiliary(unittest.TestCase):
         image_returned = aux.image_resize(image, 4000)
         image_returned_shape = image_returned.shape
         self.assertNotEqual(image_shape, image_returned_shape)
-
-    def test_dpi_upgrade(self):
-        ...
-
-    def test_morphologic_filters(self):
-        ...
 
     def test_binarize_image(self):
         image = get_CV_image()
