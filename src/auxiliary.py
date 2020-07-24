@@ -165,3 +165,9 @@ class Auxiliary(object):
     def dilate_image(self, image, kernel_size):
         kernel = np.ones((kernel_size, kernel_size), np.uint8)
         return cv2.dilate(image, kernel, iterations=1)
+
+    def binarize_image(self, image):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        th, bin_image = cv2.threshold(
+            image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        return bin_image
