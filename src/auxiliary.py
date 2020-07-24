@@ -141,3 +141,10 @@ class Auxiliary(object):
         im_resized.save(temp_file, dpi=(dpi, dpi))
 
         return np.asarray(im_resized)[:, :, ::-1]
+
+    def open_close_filter(self, image, method, kernel=2):
+        kernel = cv2.getStructuringElement(
+            cv2.MORPH_RECT, (kernel, kernel))
+        image = 255 - cv2.morphologyEx(255 - image,
+                                       method, kernel, iterations=1)
+        return image
