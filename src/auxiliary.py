@@ -78,3 +78,25 @@ class Auxiliary(object):
     def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
         adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
         return adjusted_image
+
+    def run_kmeans(self, image, clusters):
+        image = image.reshape((image.shape[0] * image.shape[1], 3))
+        clt = KMeans(n_clusters=clusters)
+        clt.fit(image)
+        hist = centroid_histogram(clt)
+        colors = sort_colors(hist, clt.cluster_centers_)
+        return colors
+
+    def centroid_histogram(self, clt):
+        numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
+        (hist, _) = np.histogram(clt.labels_, bins=numLabels)
+        hist = hist.astype("float")
+        hist /= hist.sum()
+        return hist
+
+    def sort_colors(self, hist, centroids):
+        aux = {}
+        for (percent, color) in zip(hist, centroids):
+            aux[tuple(color.astype("uint8").tolist())] = percent
+        aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
+        return aux
