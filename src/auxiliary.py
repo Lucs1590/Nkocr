@@ -161,3 +161,7 @@ class Auxiliary(object):
             low_contrast_mask = np.absolute(image - blurred) < threshold
             np.copyto(sharpened, image, where=low_contrast_mask)
         return sharpened
+
+    def dilate_image(self, image, kernel_size):
+        kernel = np.ones((kernel_size, kernel_size), np.uint8)
+        return cv2.dilate(image, kernel, iterations=1)
