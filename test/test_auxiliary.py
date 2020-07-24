@@ -30,3 +30,33 @@ class TestAuxiliary(unittest.TestCase):
         string = 'a'
         with self.assertRaises(TypeError):
             aux.get_input_type(string)
+
+    def test_to_opencv_conversion(self):
+        ...
+
+    def test_remove_alpha_channel(self):
+        ...
+
+    def test_brightness_contrast_optmization(self):
+        ...
+
+    def test_run_k_means(self):
+        ...
+
+    def test_centroid_histogram(self):
+        ...
+
+    def test_sort_colors(self):
+        ...
+
+    def test_resize_image(self):
+        ...
+
+    def test_dpi_upgrade(self):
+        ...
+
+    def test_morphologic_filters(self):
+        ...
+
+    def test_binarize_image(self):
+        ...
