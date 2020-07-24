@@ -66,7 +66,7 @@ class ocr_table(object):
             image = self.aux.to_opencv_type(image)
         image = self.aux.remove_alpha_channel(image)
         image = self.aux.brightness_contrast_optimization(image, 1, 0.5)
-        colors = self.aux.to_kmeans(image, 2)
+        colors = self.aux.run_kmeans(image, 2)
         image = self.remove_lines(image, colors)
         image = self.aux.image_resize(image, height=image.shape[0]*4)
         image = self.aux.open_close(image, cv2.MORPH_CLOSE)
