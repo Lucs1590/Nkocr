@@ -5,6 +5,7 @@ import numpy as np
 
 from PIL import Image
 from src.auxiliary import Auxiliary
+from sklearn.cluster import KMeans
 
 
 aux = Auxiliary()
@@ -57,7 +58,9 @@ class TestAuxiliary(unittest.TestCase):
         ...
 
     def test_run_k_means(self):
-        ...
+        image = get_CV_image()
+        colors = aux.run_kmeans(image, 1)
+        self.assertEqual(len(colors), 1)
 
     def test_centroid_histogram(self):
         ...
