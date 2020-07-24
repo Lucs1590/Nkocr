@@ -71,3 +71,6 @@ class Auxiliary(object):
 
     def to_opencv_type(self, image):
         return np.asarray(image)[:, :, ::-1]
+
+    def remove_alpha_channel(self, image):
+        return image[:, :, :3]
