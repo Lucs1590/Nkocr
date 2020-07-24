@@ -44,7 +44,9 @@ class TestAuxiliary(unittest.TestCase):
             aux.get_input_type(string)
 
     def test_to_opencv_conversion(self):
-        ...
+        image = get_PIL_image()
+        image = aux.to_opencv_type(image)
+        self.assertTrue(isinstance(image, np.ndarray))
 
     def test_remove_alpha_channel(self):
         image = get_CV_image()
