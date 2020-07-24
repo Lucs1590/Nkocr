@@ -1,9 +1,18 @@
 import unittest
+import cv2
 from PIL import Image
 from src.auxiliary import Auxiliary
 
 
 aux = Auxiliary()
+
+
+def get_PIL_image():
+    return Image.open('test/ocr.png')
+
+
+def get_CV_image():
+    return cv2.imread('test/ocr.png')
 
 
 class TestAuxiliary(unittest.TestCase):
@@ -12,7 +21,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertTrue(True)
 
     def test_image_type(self):
-        image = Image.open('test/ocr.png')
+        image = get_PIL_image()
         input_type = aux.get_input_type(image)
         self.assertEqual(input_type, 3)
 
