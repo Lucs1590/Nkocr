@@ -1,4 +1,5 @@
 import re
+import numpy as np
 from os import path
 
 
@@ -67,3 +68,6 @@ class Auxiliary(object):
             plt_ppm_type or \
             plt_tiff_type else \
             False
+
+    def to_opencv_type(self, image):
+        return np.asarray(image)[:, :, ::-1]
