@@ -45,7 +45,8 @@ setup(
         'wheel==0.34.2',
         'pillow==7.2.0',
         'numpy==1.19.0',
-        'opencv-contrib-python>=4.3.*'
+        'opencv-contrib-python>=4.3.*',
+        'sklearn==0.23.1'
     ],
     extras_require={
         'dev': [
