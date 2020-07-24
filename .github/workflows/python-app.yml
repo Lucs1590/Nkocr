@@ -28,7 +28,7 @@ jobs:
     - name: Install Tesseract OCR and OpenCV
       run: |
        sudo apt install tesseract-ocr libtesseract-dev tesseract-ocr-por
-       sudo apt install python-opencv
+       sudo apt install python3-opencv
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
