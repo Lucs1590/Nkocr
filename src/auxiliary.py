@@ -1,6 +1,12 @@
 import re
+import cv2
+import tempfile
+
 import numpy as np
+
 from os import path
+from PIL import Image
+from sklearn.cluster import KMeans
 
 
 class Auxiliary(object):
