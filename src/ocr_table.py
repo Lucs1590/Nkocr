@@ -1,5 +1,6 @@
 import requests
 import pytesseract
+import numpy as np
 
 from PIL import Image
 from time import time
@@ -61,7 +62,8 @@ class ocr_table(object):
         return phrase
 
     def run_pipeline(self, image):
-        image = self.aux.to_opencv_type(image)
+        if not isinstance(image, np.ndarray):
+            image = self.aux.to_opencv_type(image)
         image = self.aux.remove_alpha_channel(image)
         image = self.aux.brightness_contrast_optimization(image, 1, 0.5)
         colors = self.aux.to_kmeans(image, 2)
