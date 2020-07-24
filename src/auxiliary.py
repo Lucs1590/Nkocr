@@ -106,3 +106,38 @@ class Auxiliary(object):
             aux[tuple(color.astype("uint8").tolist())] = percent
         aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
         return aux
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+
+        if width is None and height is None:
+            return image
+
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+
+        resized = cv2.resize(image, dim, interpolation=inter)
+        resized = set_image_dpi(resized, 300)
+        return resized
+
+    def set_image_dpi(self, image, dpi):
+        img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        im = Image.fromarray(img)
+
+        length_x, width_y = im.size
+        factor = min(1, float(1024.0 / length_x))
+
+        size = int(factor * length_x), int(factor * width_y)
+        im_resized = im.resize(size, Image.ANTIALIAS)
+        temp_file = tempfile.NamedTemporaryFile(suffix='.png')
+        temp_file = temp_file.name
+
+        im_resized.save(temp_file, dpi=(dpi, dpi))
+
+        return np.asarray(im_resized)[:, :, ::-1]
