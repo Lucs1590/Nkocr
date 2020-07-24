@@ -51,15 +51,24 @@ class ocr_table(object):
     def run_online_img_ocr(self, image):
         response = requests.get(image)
         image = Image.open(BytesIO(response.content))
+
+        image = self.run_pipeline(image)
         phrase = pytesseract.image_to_string(image, lang=self.lang)
+
         return phrase
 
     def run_path_img_ocr(self, image):
-        phrase = pytesseract.image_to_string(Image.open(image), lang=self.lang)
+        image = Image.open(image)
+
+        image = self.run_pipeline(image)
+        phrase = pytesseract.image_to_string(image, lang=self.lang)
+
         return phrase
 
     def run_img_ocr(self, image):
+        image = self.run_pipeline(image)
         phrase = pytesseract.image_to_string(image, lang=self.lang)
+
         return phrase
 
     def run_pipeline(self, image):
