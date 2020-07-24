@@ -76,7 +76,7 @@ class ocr_table(object):
         image = self.aux.dilate_image(image, 1)
 
         image = self.aux.binarize_image(image)
-        image = self.aux.open_close(image, cv2.MORPH_CLOSE, 1)
+        image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
 
         return image
 
