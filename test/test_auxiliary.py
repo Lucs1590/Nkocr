@@ -63,7 +63,10 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(len(colors), 1)
 
     def test_centroid_histogram(self):
-        ...
+        kmns = KMeans(n_clusters=7, random_state=0).fit(
+            np.array([[1, 2], [1, 4], [1, 0], [10, 2], [10, 4], [10, 0],  [10, 7]]))
+        centroids = aux.centroid_histogram(kmns)
+        self.assertEqual(len(centroids), 7)
 
     def test_sort_colors(self):
         hist = np.array([0.2, 0.3, 0.5])
