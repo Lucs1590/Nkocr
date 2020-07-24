@@ -123,7 +123,7 @@ class Auxiliary(object):
             dim = (width, int(h * r))
 
         resized = cv2.resize(image, dim, interpolation=inter)
-        resized = set_image_dpi(resized, 300)
+        resized = self.set_image_dpi(resized, 300)
         return resized
 
     def set_image_dpi(self, image, dpi):

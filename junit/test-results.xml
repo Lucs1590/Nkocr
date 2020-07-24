@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite errors="0" failures="4" hostname="brito" name="pytest" skipped="0" tests="17" time="9.576" timestamp="2020-07-24T11:42:54.269181"><testcase classname="test.test_auxiliary.TestAuxiliary" file="test/test_auxiliary.py" line="13" name="test_image_type" time="0.029"></testcase><testcase classname="test.test_auxiliary.TestAuxiliary" file="test/test_auxiliary.py" line="10" name="test_of_tests" time="0.002"></testcase><testcase classname="test.test_auxiliary.TestAuxiliary" file="test/test_auxiliary.py" line="18" name="test_path_type" time="0.011"></testcase><testcase classname="test.test_auxiliary.TestAuxiliary" file="test/test_auxiliary.py" line="23" name="test_url_type" time="0.003"></testcase><testcase classname="test.test_auxiliary.TestAuxiliary" file="test/test_auxiliary.py" line="28" name="test_wrong_type" time="0.004"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="26" name="test_execution_time" time="0.526"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="20" name="test_image_processing" time="0.287"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="7" name="test_of_tests" time="0.001"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="10" name="test_path_processing" time="0.220"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="15" name="test_url_processing" time="1.382"></testcase><testcase classname="test.test_ocr_product.TestProduct" file="test/test_ocr_product.py" line="33" name="test_wrong_type" time="0.003"></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="26" name="test_execution_time" time="1.129"><failure message="NameError: name &apos;set_image_dpi&apos; is not defined">self = &lt;test_ocr_table.TestTable testMethod=test_execution_time&gt;
+
+    def test_execution_time(self):
+&gt;       text_and_time = ocr_table(&apos;test/ocr.png&apos;, show_performace=True)
+
+test/test_ocr_table.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/ocr_table.py:22: in __init__
+    self.text = self.process_image(image, input_type)
+src/ocr_table.py:44: in process_image
+    return self.run_path_img_ocr(image)
+src/ocr_table.py:63: in run_path_img_ocr
+    image = self.run_pipeline(image)
+src/ocr_table.py:81: in run_pipeline
+    image = self.aux.image_resize(image, height=image.shape[0]*4)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;src.auxiliary.Auxiliary object at 0x7f58242f9910&gt;
+image = array([[[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0...     [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]]], dtype=uint8)
+width = None, height = 2000, inter = 3
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+    
+        if width is None and height is None:
+            return image
+    
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+    
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+    
+        resized = cv2.resize(image, dim, interpolation=inter)
+&gt;       resized = set_image_dpi(resized, 300)
+E       NameError: name &apos;set_image_dpi&apos; is not defined
+
+src/auxiliary.py:126: NameError</failure></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="20" name="test_image_processing" time="1.081"><failure message="NameError: name &apos;set_image_dpi&apos; is not defined">self = &lt;test_ocr_table.TestTable testMethod=test_image_processing&gt;
+
+    def test_image_processing(self):
+        image = Image.open(&apos;test/ocr.png&apos;)
+&gt;       text = ocr_table(image)
+
+test/test_ocr_table.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/ocr_table.py:22: in __init__
+    self.text = self.process_image(image, input_type)
+src/ocr_table.py:46: in process_image
+    return self.run_img_ocr(image)
+src/ocr_table.py:69: in run_img_ocr
+    image = self.run_pipeline(image)
+src/ocr_table.py:81: in run_pipeline
+    image = self.aux.image_resize(image, height=image.shape[0]*4)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;src.auxiliary.Auxiliary object at 0x7f5823a07e80&gt;
+image = array([[[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0...     [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]]], dtype=uint8)
+width = None, height = 2000, inter = 3
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+    
+        if width is None and height is None:
+            return image
+    
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+    
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+    
+        resized = cv2.resize(image, dim, interpolation=inter)
+&gt;       resized = set_image_dpi(resized, 300)
+E       NameError: name &apos;set_image_dpi&apos; is not defined
+
+src/auxiliary.py:126: NameError</failure></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="7" name="test_of_tests" time="0.001"></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="10" name="test_path_processing" time="1.416"><failure message="NameError: name &apos;set_image_dpi&apos; is not defined">self = &lt;test_ocr_table.TestTable testMethod=test_path_processing&gt;
+
+    def test_path_processing(self):
+&gt;       text = ocr_table(&apos;test/ocr.png&apos;)
+
+test/test_ocr_table.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/ocr_table.py:22: in __init__
+    self.text = self.process_image(image, input_type)
+src/ocr_table.py:44: in process_image
+    return self.run_path_img_ocr(image)
+src/ocr_table.py:63: in run_path_img_ocr
+    image = self.run_pipeline(image)
+src/ocr_table.py:81: in run_pipeline
+    image = self.aux.image_resize(image, height=image.shape[0]*4)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;src.auxiliary.Auxiliary object at 0x7f58239e46a0&gt;
+image = array([[[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0...     [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]]], dtype=uint8)
+width = None, height = 2000, inter = 3
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+    
+        if width is None and height is None:
+            return image
+    
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+    
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+    
+        resized = cv2.resize(image, dim, interpolation=inter)
+&gt;       resized = set_image_dpi(resized, 300)
+E       NameError: name &apos;set_image_dpi&apos; is not defined
+
+src/auxiliary.py:126: NameError</failure></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="15" name="test_url_processing" time="1.880"><failure message="NameError: name &apos;set_image_dpi&apos; is not defined">self = &lt;test_ocr_table.TestTable testMethod=test_url_processing&gt;
+
+    def test_url_processing(self):
+&gt;       text = ocr_table(&apos;https://img.icons8.com/all/500/general-ocr.png&apos;)
+
+test/test_ocr_table.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src/ocr_table.py:22: in __init__
+    self.text = self.process_image(image, input_type)
+src/ocr_table.py:42: in process_image
+    return self.run_online_img_ocr(image)
+src/ocr_table.py:55: in run_online_img_ocr
+    image = self.run_pipeline(image)
+src/ocr_table.py:81: in run_pipeline
+    image = self.aux.image_resize(image, height=image.shape[0]*4)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;src.auxiliary.Auxiliary object at 0x7f5823a28100&gt;
+image = array([[[0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0...     [0, 0, 0],
+        [0, 0, 0],
+        ...,
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]]], dtype=uint8)
+width = None, height = 2000, inter = 3
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+    
+        if width is None and height is None:
+            return image
+    
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+    
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+    
+        resized = cv2.resize(image, dim, interpolation=inter)
+&gt;       resized = set_image_dpi(resized, 300)
+E       NameError: name &apos;set_image_dpi&apos; is not defined
+
+src/auxiliary.py:126: NameError</failure></testcase><testcase classname="test.test_ocr_table.TestTable" file="test/test_ocr_table.py" line="33" name="test_wrong_type" time="0.002"></testcase></testsuite></testsuites>
