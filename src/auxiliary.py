@@ -74,3 +74,7 @@ class Auxiliary(object):
 
     def remove_alpha_channel(self, image):
         return image[:, :, :3]
+
+    def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
+        adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+        return adjusted_image
