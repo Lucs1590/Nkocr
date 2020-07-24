@@ -59,7 +59,11 @@ class TestAuxiliary(unittest.TestCase):
         ...
 
     def test_resize_image(self):
-        ...
+        image = get_CV_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image, 4000)
+        image_returned_shape = image_returned.shape
+        self.assertNotEqual(image_shape, image_returned_shape)
 
     def test_dpi_upgrade(self):
         ...
