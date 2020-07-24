@@ -1,6 +1,7 @@
 import requests
 import pytesseract
 import numpy as np
+import cv2
 
 from PIL import Image
 from time import time
@@ -76,5 +77,32 @@ class ocr_table(object):
 
         image = self.aux.binarize_image(image)
         image = self.aux.open_close(image, cv2.MORPH_CLOSE, 1)
+
+        return image
+
+    def remove_lines(self, image, colors):
+        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        thresh_val, bin_image = cv2.threshold(
+            gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+        horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
+        vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
+
+        detected_h_lines = cv2.morphologyEx(
+            bin_image, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+        detected_v_lines = cv2.morphologyEx(
+            bin_image, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+
+        h_cnts = cv2.findContours(
+            detected_h_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        h_cnts = h_cnts[0] if len(h_cnts) == 2 else h_cnts[1]
+        for c in h_cnts:
+            cv2.drawContours(image, [c], -1, colors[0][0], 2)
+
+        v_cnts = cv2.findContours(
+            detected_v_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        v_cnts = v_cnts[0] if len(v_cnts) == 2 else v_cnts[1]
+        for c in v_cnts:
+            cv2.drawContours(image, [c], -1, colors[0][0], 2)
 
         return image
