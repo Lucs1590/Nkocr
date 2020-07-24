@@ -10,7 +10,8 @@ As a prerequisite of this project, we have the tesseract library which can be fo
 
 https://github.com/tesseract-ocr/tesseract
 
-# Installation of prerequisite
+# Installation of prerequisites
+## Tesseract OCR
 The installation of tesseract on the **Linux** system can be done in a few commands:
 
 ```bash
@@ -26,7 +27,14 @@ After performing the tesseract installation, it is possible to perform OCR in ju
 > The default language is English, depending on the text, it will not be possible to capture the word/phrase.
 If you want to work with another language, you need to make some additional installations. (https://github.com/tesseract-ocr/tesseract/wiki#other-languages)
 ---
+## OpenCV
+The installation of OpenCV on the **Linux** system can be done in a command:
 
+```bash
+$ sudo apt install python3-opencv
+```
+ > To more informations, access: https://docs.opencv.org/master/da/df6/tutorial_py_table_of_contents_setup.html
+---
 # Installation
 You can install this package with:
 ```bash

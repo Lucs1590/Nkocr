@@ -1,5 +1,12 @@
 import re
+import cv2
+import tempfile
+
+import numpy as np
+
 from os import path
+from PIL import Image
+from sklearn.cluster import KMeans
 
 
 class Auxiliary(object):
@@ -67,3 +74,100 @@ class Auxiliary(object):
             plt_ppm_type or \
             plt_tiff_type else \
             False
+
+    def to_opencv_type(self, image):
+        return np.asarray(image)[:, :, ::-1]
+
+    def remove_alpha_channel(self, image):
+        return image[:, :, :3]
+
+    def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
+        adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+        return adjusted_image
+
+    def run_kmeans(self, image, clusters):
+        image = image.reshape((image.shape[0] * image.shape[1], 3))
+        clt = KMeans(n_clusters=clusters)
+        clt.fit(image)
+        hist = self.centroid_histogram(clt)
+        colors = self.sort_colors(hist, clt.cluster_centers_)
+        return colors
+
+    def centroid_histogram(self, clt):
+        numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
+        (hist, _) = np.histogram(clt.labels_, bins=numLabels)
+        hist = hist.astype("float")
+        hist /= hist.sum()
+        return hist
+
+    def sort_colors(self, hist, centroids):
+        aux = {}
+        for (percent, color) in zip(hist, centroids):
+            aux[tuple(color.astype("uint8").tolist())] = percent
+        aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
+        return aux
+
+    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
+        dim = None
+        (h, w) = image.shape[:2]
+
+        if width is None and height is None:
+            return image
+
+        if width is None:
+            r = height / float(h)
+            dim = (int(w * r), height)
+
+        else:
+            r = width / float(w)
+            dim = (width, int(h * r))
+
+        resized = cv2.resize(image, dim, interpolation=inter)
+        resized = self.set_image_dpi(resized, 300)
+        return resized
+
+    def set_image_dpi(self, image, dpi):
+        img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        im = Image.fromarray(img)
+
+        length_x, width_y = im.size
+        factor = min(1, float(1024.0 / length_x))
+
+        size = int(factor * length_x), int(factor * width_y)
+        im_resized = im.resize(size, Image.ANTIALIAS)
+        temp_file = tempfile.NamedTemporaryFile(suffix='.png')
+        temp_file = temp_file.name
+
+        im_resized.save(temp_file, dpi=(dpi, dpi))
+
+        return np.asarray(im_resized)[:, :, ::-1]
+
+    def open_close_filter(self, image, method, kernel=2):
+        kernel = cv2.getStructuringElement(
+            cv2.MORPH_RECT, (kernel, kernel))
+        image = 255 - cv2.morphologyEx(255 - image,
+                                       method, kernel, iterations=1)
+        return image
+
+    def unsharp_mask(self, image, kernel_size=(5, 5), sigma=1.0, amount=1.0, threshold=0):
+        """Return a sharpened version of the image, using an unsharp mask."""
+        # https://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm
+        blurred = cv2.GaussianBlur(image, kernel_size, sigma)
+        sharpened = float(amount + 1) * image - float(amount) * blurred
+        sharpened = np.maximum(sharpened, np.zeros(sharpened.shape))
+        sharpened = np.minimum(sharpened, 255 * np.ones(sharpened.shape))
+        sharpened = sharpened.round().astype(np.uint8)
+        if threshold > 0:
+            low_contrast_mask = np.absolute(image - blurred) < threshold
+            np.copyto(sharpened, image, where=low_contrast_mask)
+        return sharpened
+
+    def dilate_image(self, image, kernel_size):
+        kernel = np.ones((kernel_size, kernel_size), np.uint8)
+        return cv2.dilate(image, kernel, iterations=1)
+
+    def binarize_image(self, image):
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        th, bin_image = cv2.threshold(
+            image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        return bin_image
