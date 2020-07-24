@@ -59,3 +59,22 @@ class ocr_table(object):
     def run_img_ocr(self, image):
         phrase = pytesseract.image_to_string(image, lang=self.lang)
         return phrase
+
+    def run_pipeline(self, image):
+        image = to_opencv_type(image)
+        image = remove_alpha_channel(image)
+        image = brightness_contrast_optimization(image, 1, 0.5)
+        colors = to_kmeans(image, 2)
+        image = remove_lines(image, colors)
+        image = image_resize(image, height=image.shape[0]*4)
+        image = open_close(image, cv2.MORPH_CLOSE)
+        image = brightness_contrast_optimization(image, 1, 0.5)
+        image = unsharp_mask(image, (3, 3), 0.5, 1.5, 0)
+        image = dilate(image, 1)
+
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        ret2, bin_image = cv2.threshold(
+            image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        bin_image = open_close(bin_image, cv2.MORPH_CLOSE, 1)
+
+        return bin_image
