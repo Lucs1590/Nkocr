@@ -15,7 +15,7 @@ https://github.com/tesseract-ocr/tesseract
 The installation of tesseract on the **Linux** system can be done in a few commands:
 
 ```bash
-$ sudo apt install tesseract-ocr
+$ sudo apt install tesseract-ocr tesseract-ocr-por
 $ sudo apt install libtesseract-dev
 ```
 
