@@ -85,56 +85,60 @@ class Auxiliary(object):
         adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
         return adjusted_image
 
-    def run_kmeans(self, image, clusters):
+    def run_kmeans(self, image, number_clusters):
         image = image.reshape((image.shape[0] * image.shape[1], 3))
-        clt = KMeans(n_clusters=clusters)
-        clt.fit(image)
-        hist = self.centroid_histogram(clt)
-        colors = self.sort_colors(hist, clt.cluster_centers_)
+        clusters = KMeans(n_clusters=number_clusters)
+        clusters.fit(image)
+        histogram = self.centroid_histogram(clusters)
+        colors = self.sort_colors(histogram, clusters.cluster_centers_)
         return colors
 
-    def centroid_histogram(self, clt):
-        numLabels = np.arange(0, len(np.unique(clt.labels_)) + 1)
-        (hist, _) = np.histogram(clt.labels_, bins=numLabels)
-        hist = hist.astype("float")
-        hist /= hist.sum()
-        return hist
+    def centroid_histogram(self, clusters):
+        num_labels = np.arange(0, len(np.unique(clusters.labels_)) + 1)
+        (histogram, _) = np.histogram(clusters.labels_, bins=num_labels)
+        histogram = histogram.astype('float')
+        histogram /= histogram.sum()
+        return histogram
 
-    def sort_colors(self, hist, centroids):
+    def sort_colors(self, histogram, centroids):
         aux = {}
-        for (percent, color) in zip(hist, centroids):
-            aux[tuple(color.astype("uint8").tolist())] = percent
+        for (percentage, color) in zip(histogram, centroids):
+            aux[tuple(color.astype('uint8').tolist())] = percentage
         aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
         return aux
 
-    def image_resize(self, image, width=None, height=None, inter=cv2.INTER_AREA):
-        dim = None
-        (h, w) = image.shape[:2]
+    def image_resize(self,
+                     image,
+                     width=None,
+                     height=None,
+                     inter=cv2.INTER_AREA):
+        dimensions = None
+        (_height, _width) = image.shape[:2]
 
         if width is None and height is None:
             return image
 
         if width is None:
-            r = height / float(h)
-            dim = (int(w * r), height)
+            proportion = height / float(_height)
+            dimensions = (int(_width * proportion), height)
 
         else:
-            r = width / float(w)
-            dim = (width, int(h * r))
+            proportion = width / float(_width)
+            dimensions = (width, int(_height * proportion))
 
-        resized = cv2.resize(image, dim, interpolation=inter)
+        resized = cv2.resize(image, dimensions, interpolation=inter)
         resized = self.set_image_dpi(resized, 300)
         return resized
 
     def set_image_dpi(self, image, dpi):
-        img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        im = Image.fromarray(img)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        image = Image.fromarray(image)
 
-        length_x, width_y = im.size
+        length_x, width_y = image.size
         factor = min(1, float(1024.0 / length_x))
 
         size = int(factor * length_x), int(factor * width_y)
-        im_resized = im.resize(size, Image.ANTIALIAS)
+        im_resized = image.resize(size, Image.ANTIALIAS)
         temp_file = tempfile.NamedTemporaryFile(suffix='.png')
         temp_file = temp_file.name
 
@@ -149,7 +153,12 @@ class Auxiliary(object):
                                        method, kernel, iterations=1)
         return image
 
-    def unsharp_mask(self, image, kernel_size=(5, 5), sigma=1.0, amount=1.0, threshold=0):
+    def unsharp_mask(self,
+                     image,
+                     kernel_size=(5, 5),
+                     sigma=1.0,
+                     amount=1.0,
+                     threshold=0):
         """Return a sharpened version of the image, using an unsharp mask."""
         # https://homepages.inf.ed.ac.uk/rbf/HIPR2/unsharp.htm
         blurred = cv2.GaussianBlur(image, kernel_size, sigma)
@@ -168,6 +177,6 @@ class Auxiliary(object):
 
     def binarize_image(self, image):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        th, bin_image = cv2.threshold(
+        threshold, bin_image = cv2.threshold(
             image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         return bin_image

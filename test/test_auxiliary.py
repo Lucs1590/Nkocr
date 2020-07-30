@@ -11,11 +11,11 @@ from sklearn.cluster import KMeans
 aux = Auxiliary()
 
 
-def get_PIL_image():
+def get_pil_image():
     return Image.open('test/ocr.png')
 
 
-def get_CV_image():
+def get_cv_image():
     return cv2.imread('test/ocr.png')
 
 
@@ -25,7 +25,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertTrue(True)
 
     def test_image_type(self):
-        image = get_PIL_image()
+        image = get_pil_image()
         input_type = aux.get_input_type(image)
         self.assertEqual(input_type, 3)
 
@@ -45,23 +45,31 @@ class TestAuxiliary(unittest.TestCase):
             aux.get_input_type(string)
 
     def test_to_opencv_conversion(self):
-        image = get_PIL_image()
+        image = get_pil_image()
         image = aux.to_opencv_type(image)
         self.assertTrue(isinstance(image, np.ndarray))
 
     def test_remove_alpha_channel(self):
-        image = get_CV_image()
+        image = get_cv_image()
         image = aux.remove_alpha_channel(image)
         self.assertEqual(image.shape[-1], 3)
 
     def test_run_k_means(self):
-        image = get_CV_image()
+        image = get_cv_image()
         colors = aux.run_kmeans(image, 1)
         self.assertEqual(len(colors), 1)
 
     def test_centroid_histogram(self):
         kmns = KMeans(n_clusters=7, random_state=0).fit(
-            np.array([[1, 2], [1, 4], [1, 0], [10, 2], [10, 4], [10, 0],  [10, 7]]))
+            np.array([
+                [1, 2],
+                [1, 4],
+                [1, 0],
+                [10, 2],
+                [10, 4],
+                [10, 0],
+                [10, 7]
+            ]))
         centroids = aux.centroid_histogram(kmns)
         self.assertEqual(len(centroids), 7)
 
@@ -76,14 +84,14 @@ class TestAuxiliary(unittest.TestCase):
         self.assertTrue(result)
 
     def test_resize_image(self):
-        image = get_CV_image()
+        image = get_cv_image()
         image_shape = image.shape
         image_returned = aux.image_resize(image, 4000)
         image_returned_shape = image_returned.shape
         self.assertNotEqual(image_shape, image_returned_shape)
 
     def test_binarize_image(self):
-        image = get_CV_image()
+        image = get_cv_image()
         expected_shape = (image.shape[0], image.shape[1])
         bin_image = aux.binarize_image(image)
         bin_image_shape = bin_image.shape
