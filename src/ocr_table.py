@@ -30,7 +30,8 @@ class ocr_table(object):
 
     def define_global_vars(self, language, show_performace):
         self.aux = Auxiliary()
-        if isinstance(language, str) and isinstance(show_performace, bool):
+        if isinstance(language, str) and \
+                isinstance(show_performace, bool):
             self.lang = language
             self.show_performace = show_performace
         else:
@@ -58,9 +59,7 @@ class ocr_table(object):
         return phrase
 
     def run_path_img_ocr(self, image):
-        image = Image.open(image)
-
-        image = self.run_pipeline(image)
+        image = self.run_pipeline(Image.open(image))
         phrase = pytesseract.image_to_string(image, lang=self.lang)
 
         return phrase
@@ -91,7 +90,7 @@ class ocr_table(object):
 
     def remove_lines(self, image, colors):
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        thresh_val, bin_image = cv2.threshold(
+        threshold_value, bin_image = cv2.threshold(
             gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
         horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
@@ -102,16 +101,16 @@ class ocr_table(object):
         detected_v_lines = cv2.morphologyEx(
             bin_image, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
 
-        h_cnts = cv2.findContours(
+        h_contours = cv2.findContours(
             detected_h_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        h_cnts = h_cnts[0] if len(h_cnts) == 2 else h_cnts[1]
-        for c in h_cnts:
-            cv2.drawContours(image, [c], -1, colors[0][0], 2)
+        h_contours = h_contours[0] if len(h_contours) == 2 else h_contours[1]
+        for contour in h_contours:
+            cv2.drawContours(image, [contour], -1, colors[0][0], 2)
 
-        v_cnts = cv2.findContours(
+        v_contours = cv2.findContours(
             detected_v_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        v_cnts = v_cnts[0] if len(v_cnts) == 2 else v_cnts[1]
-        for c in v_cnts:
-            cv2.drawContours(image, [c], -1, colors[0][0], 2)
+        v_contours = v_contours[0] if len(v_contours) == 2 else v_contours[1]
+        for contour in v_contours:
+            cv2.drawContours(image, [contour], -1, colors[0][0], 2)
 
         return image
