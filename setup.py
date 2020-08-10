@@ -40,7 +40,7 @@ setup(
     python_requires='>=3.6',
     install_requires=[
         'tesseract==0.1.3',
-        'pytesseract==0.3.4',
+        'pytesseract==0.3.5',
         'requests==2.24.0',
         'wheel==0.34.2',
         'pillow==7.2.0',
