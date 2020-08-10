@@ -46,7 +46,7 @@ setup(
         'pillow==7.2.0',
         'numpy==1.19.1',
         'opencv-contrib-python>=4.3.*',
-        'scikit-learn==0.23.1'
+        'scikit-learn==0.23.2'
     ],
     extras_require={
         'dev': [
