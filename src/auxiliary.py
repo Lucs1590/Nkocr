@@ -1,6 +1,9 @@
 import re
 import cv2
 import tempfile
+import sys
+import os
+import gdown
 
 import numpy as np
 
@@ -12,7 +15,25 @@ from sklearn.cluster import KMeans
 class Auxiliary(object):
 
     def load_east_model(self):
-        pass
+        _path = list(
+            filter(lambda _path: 'site-packages' in _path, sys.path))[-1]
+        if _path:
+            if not path.isdir(_path+'/nkocr-model'):
+                os.mkdir(_path+'/nkocr-model')
+
+            model = _path + '/nkocr-model/frozen_east_text_detection.pb'
+            if not path.isfile(model):
+                self.get_model_from_s3(model)
+
+            return model
+        else:
+            print('raise error')
+
+    def get_model_from_s3(self, output):
+        url = 'https://project-elements-nk.s3.amazonaws.com/' +\
+            'frozen_east_text_detection.pb'
+        gdown.download(url, output, quiet=False)
+        return output
 
     def get_input_type(self, _input):
         if self.is_url(_input):
