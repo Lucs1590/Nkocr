@@ -27,12 +27,18 @@ class Auxiliary(object):
 
             return model
         else:
-            print('raise error')
+            raise OSError(
+                'the default directory of Python, site-packages, is not found.')
 
     def get_model_from_s3(self, output):
         url = 'https://project-elements-nk.s3.amazonaws.com/' +\
             'frozen_east_text_detection.pb'
-        gdown.download(url, output, quiet=False)
+        try:
+            gdown.download(url, output, quiet=False)
+        except:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
+
         return output
 
     def get_input_type(self, _input):
