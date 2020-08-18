@@ -11,6 +11,9 @@ from sklearn.cluster import KMeans
 
 class Auxiliary(object):
 
+    def load_east_model(self):
+        pass
+
     def get_input_type(self, _input):
         if self.is_url(_input):
             return 1

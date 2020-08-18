@@ -16,6 +16,7 @@ class ocr_table(object):
                  language: str = 'por',
                  show_performace: bool = False):
         self.define_global_vars(language, show_performace)
+        model = self.aux.load_east_model()
         started_time = time()
 
         input_type = self.aux.get_input_type(image)
