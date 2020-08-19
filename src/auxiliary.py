@@ -228,3 +228,9 @@ class Auxiliary(object):
         sorted_results              = self.sort_boxes(results)
 
         return sorted_results
+
+    def get_size(self, image):
+        return image.shape[0], image.shape[1]
+
+    def get_ratio(self, height, width):
+        return height / float(640),  width / float(640)
