@@ -251,3 +251,69 @@ class Auxiliary(object):
         (scores, geometry) = net.forward(layerNames)
 
         return scores, geometry
+
+    def decode_predictions(self, scores, geometry, min_confidence):
+        (num_rows, num_cols) = scores.shape[2:4]
+        rects = []
+        confidences = []
+
+        for constant_y in range(0, num_rows):
+            scores_data = scores[0, 0, constant_y]
+
+            point_0 = geometry[0, 0, constant_y]
+            point_1 = geometry[0, 1, constant_y]
+            point_2 = geometry[0, 2, constant_y]
+            point_3 = geometry[0, 3, constant_y]
+
+            angles = geometry[0, 4, constant_y]
+
+            for constant_x in range(0, num_cols):
+                if scores_data[constant_x] < min_confidence:
+                    continue
+
+                (offset_x, offset_y) = (constant_x * 4.0, constant_y * 4.0)
+
+                angle = angles[constant_x]
+                cos = np.cos(angle)
+                sin = np.sin(angle)
+
+                height = point_0[constant_x] + point_2[constant_x]
+                width = point_1[constant_x] + point_3[constant_x]
+
+                endX = int(
+                    offset_x + (cos * point_1[constant_x]) + (sin * point_2[constant_x]))
+                endY = int(
+                    offset_y - (sin * point_1[constant_x]) + (cos * point_2[constant_x]))
+                startX = int(endX - width)
+                startY = int(endY - height)
+
+                rects.append((startX, startY, endX, endY))
+                confidences.append(scores_data[constant_x])
+
+        return (rects, confidences)
+
+    def apply_boxes(self, boxes, image, ratio_height, ratio_width, height, width, padding):
+        results = []
+        for (start_x, start_y, end_x, end_y) in boxes:
+            start_x = int(start_x * ratio_width)
+            start_y = int(start_y * ratio_height)
+            end_x = int(end_x * ratio_width)
+            end_y = int(end_y * ratio_height)
+
+            distance_x = int((end_x - start_x) * padding)
+            distance_y = int((end_y - start_y) * padding)
+
+            start_x = max(0, start_x - distance_x)
+            start_y = max(0, start_y - distance_y)
+            end_x = min(width, end_x + (distance_x * 2))
+            end_y = min(height, end_y + (distance_y * 2))
+            roi = image[start_y:end_y, start_x:end_x]
+
+            config = ("-l por --oem 1 --psm 7")
+            text = ocr.image_to_string(roi, config=config)
+
+            results.append(((start_x, start_y, end_x, end_y), text))
+            cv2.rectangle(image, (start_x, start_y),
+                          (end_x, end_y), (0, 255, 0), 2)
+
+        return results, image
