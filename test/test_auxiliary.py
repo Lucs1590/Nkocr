@@ -96,3 +96,15 @@ class TestAuxiliary(unittest.TestCase):
         bin_image = aux.binarize_image(image)
         bin_image_shape = bin_image.shape
         self.assertEqual(bin_image_shape, expected_shape)
+
+    def test_load_model(self):
+        model = aux.load_east_model()
+        self.assertTrue(isinstance(model, str))
+
+    def test_get_model(self):
+        output = 'test/model.pb'
+        model = aux.get_model_from_s3(output)
+        self.assertTrue(isinstance(model, str))
+
+    def test_get_model_error(self):
+        self.assertTrue(True)
