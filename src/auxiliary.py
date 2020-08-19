@@ -218,8 +218,9 @@ class Auxiliary(object):
         image                       = self.image_resize(image, height=640,  width=640)
 
         (height, width)             = self.get_size(image)
+        model                       = self.aux.load_east_model()
 
-        net                         = cv2.dnn.readNet('frozen_east_text_detection.pb')
+        net                         = cv2.dnn.readNet(model)
         (scores, geometry)          = self.run_EAST(net, image, height, width)
         (rects, confidences)        = self.decode_predictions(scores, geometry, 0.5)
         boxes                       = non_max_suppression(np.array(rects), probs=confidences)
