@@ -7,6 +7,7 @@ import numpy as np
 from PIL import Image
 from src.auxiliary import Auxiliary
 from sklearn.cluster import KMeans
+from pytest_socket import disable_socket
 
 
 aux = Auxiliary()
@@ -109,4 +110,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertTrue(isinstance(model, str))
 
     def test_get_model_error(self):
-        self.assertTrue(True)
+        disable_socket()
+        output = 'test/model.pb'
+        with self.assertRaises(ConnectionError):
+            aux.get_model_from_s3(output)
