@@ -10,6 +10,7 @@ import numpy as np
 from os import path
 from PIL import Image
 from sklearn.cluster import KMeans
+from imutils.object_detection import non_max_suppression
 
 
 class Auxiliary(object):
