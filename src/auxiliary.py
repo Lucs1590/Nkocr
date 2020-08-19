@@ -6,6 +6,7 @@ import os
 import gdown
 
 import numpy as np
+import pytesseract as ocr
 
 from os import path
 from PIL import Image
@@ -215,22 +216,23 @@ class Auxiliary(object):
         return bin_image
 
     def east_process(self, image):
-        _image                      = image.copy()
-        (_height, _width)           = self.get_size(image)
+        _image = image.copy()
+        (_height, _width) = self.get_size(image)
         (ratio_height, ratio_width) = self.get_ratio(_height, _width)
 
-        image                       = self.image_resize(image, height=640,  width=640)
-        (height, width)             = self.get_size(image)
+        image = self.image_resize(image, height=640,  width=640)
+        (height, width) = self.get_size(image)
 
-        model                       = self.aux.load_east_model()
+        model = self.load_east_model()
 
-        east_network                = cv2.dnn.readNet(model)
-        (scores, geometry)          = self.run_EAST(east_network, image, height, width)
-        (rects, confidences)        = self.decode_predictions(scores, geometry, 0.5)
-        boxes                       = non_max_suppression(np.array(rects), probs=confidences)
+        east_network = cv2.dnn.readNet(model)
+        (scores, geometry) = self.run_EAST(east_network, image, height, width)
+        (rects, confidences) = self.decode_predictions(scores, geometry, 0.5)
+        boxes = non_max_suppression(np.array(rects), probs=confidences)
 
-        (results, image)            = self.apply_boxes(boxes, _image, ratio_height,ratio_width, _height, _width, 0.06)
-        sorted_results              = self.sort_boxes(results)
+        (results, image) = self.apply_boxes(boxes, _image,
+                                            ratio_height, ratio_width, _height, _width, 0.06)
+        sorted_results = self.sort_boxes(results)
 
         return sorted_results
 
