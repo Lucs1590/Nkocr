@@ -35,11 +35,10 @@ class Auxiliary(object):
             'frozen_east_text_detection.pb'
         try:
             gdown.download(url, output, quiet=False)
+            return output
         except:
             raise ConnectionError(
                 'you need to be connected to some internet network to download the EAST model.')
-
-        return output
 
     def get_input_type(self, _input):
         if self.is_url(_input):
