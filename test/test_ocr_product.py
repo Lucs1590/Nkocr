@@ -1,6 +1,8 @@
 import unittest
-from src.ocr_product import ocr_product
 from PIL import Image
+
+from src.ocr_product import ocr_product
+from pytest_socket import disable_socket, enable_socket
 
 
 class TestProduct(unittest.TestCase):

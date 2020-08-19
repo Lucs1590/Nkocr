@@ -1,6 +1,8 @@
 import unittest
-from src.ocr_table import ocr_table
 from PIL import Image
+
+from src.ocr_table import ocr_table
+from pytest_socket import disable_socket, enable_socket
 
 
 class TestTable(unittest.TestCase):

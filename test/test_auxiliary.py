@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 from src.auxiliary import Auxiliary
 from sklearn.cluster import KMeans
-from pytest_socket import disable_socket
+from pytest_socket import disable_socket, enable_socket
 
 
 aux = Auxiliary()
