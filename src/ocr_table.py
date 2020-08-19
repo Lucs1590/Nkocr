@@ -51,7 +51,11 @@ class ocr_table(object):
                 'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image):
-        response = requests.get(image)
+        try:
+            response = requests.get(image)
+        except:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
         image = Image.open(BytesIO(response.content))
 
         image = self.run_pipeline(image)
