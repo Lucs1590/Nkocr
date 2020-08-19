@@ -116,3 +116,9 @@ class TestAuxiliary(unittest.TestCase):
         output = 'test/model.pb'
         with self.assertRaises(ConnectionError):
             aux.get_model_from_s3(output)
+
+    def test_get_size(self):
+        image = get_cv_image()
+        sizes = aux.get_size(image)
+        are_numbers = isinstance(sizes[0], int) and isinstance(sizes[1], int)
+        self.assertTrue(are_numbers)
