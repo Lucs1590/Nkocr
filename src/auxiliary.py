@@ -38,7 +38,7 @@ class Auxiliary(object):
         try:
             gdown.download(url, output, quiet=False)
             return output
-        except:
+        except Exception:
             raise ConnectionError(
                 'you need to be connected to some internet network to download the EAST model.')
 
@@ -226,12 +226,13 @@ class Auxiliary(object):
         model = self.load_east_model()
 
         east_network = cv2.dnn.readNet(model)
-        (scores, geometry) = self.run_EAST(east_network, image, height, width)
+        (scores, geometry) = self.run_east(east_network, image, height, width)
         (rects, confidences) = self.decode_predictions(scores, geometry, 0.5)
         boxes = non_max_suppression(np.array(rects), probs=confidences)
 
         (results, image) = self.apply_boxes(boxes, _image,
-                                            ratio_height, ratio_width, _height, _width, 0.06)
+                                            ratio_height, ratio_width,
+                                            _height, _width, 0.06)
         sorted_results = self.sort_boxes(results)
 
         return sorted_results
@@ -242,15 +243,16 @@ class Auxiliary(object):
     def get_ratio(self, height, width):
         return height / float(640),  width / float(640)
 
-    def run_EAST(self, net, image, height, width):
-        layerNames = [
-            "feature_fusion/Conv_7/Sigmoid",
-            "feature_fusion/concat_3"
+    def run_east(self, net, image, height, width):
+        layer_names = [
+            'feature_fusion/Conv_7/Sigmoid',
+            'feature_fusion/concat_3'
         ]
         blob = cv2.dnn.blobFromImage(
-            image, 1.0, (height, width), (123.68, 116.78, 103.94), swapRB=True, crop=False)
+            image, 1.0, (height, width),
+            (123.68, 116.78, 103.94), swapRB=True, crop=False)
         net.setInput(blob)
-        (scores, geometry) = net.forward(layerNames)
+        (scores, geometry) = net.forward(layer_names)
 
         return scores, geometry
 
@@ -282,19 +284,32 @@ class Auxiliary(object):
                 height = point_0[constant_x] + point_2[constant_x]
                 width = point_1[constant_x] + point_3[constant_x]
 
-                endX = int(
-                    offset_x + (cos * point_1[constant_x]) + (sin * point_2[constant_x]))
-                endY = int(
-                    offset_y - (sin * point_1[constant_x]) + (cos * point_2[constant_x]))
-                startX = int(endX - width)
-                startY = int(endY - height)
+                end_x = int(
+                    offset_x +
+                    (cos * point_1[constant_x]) +
+                    (sin * point_2[constant_x])
+                )
+                end_y = int(
+                    offset_y -
+                    (sin * point_1[constant_x]) +
+                    (cos * point_2[constant_x])
+                )
+                start_x = int(end_x - width)
+                start_y = int(end_y - height)
 
-                rects.append((startX, startY, endX, endY))
+                rects.append((start_x, start_y, end_x, end_y))
                 confidences.append(scores_data[constant_x])
 
         return (rects, confidences)
 
-    def apply_boxes(self, boxes, image, ratio_height, ratio_width, height, width, padding):
+    def apply_boxes(self,
+                    boxes,
+                    image,
+                    ratio_height,
+                    ratio_width,
+                    height,
+                    width,
+                    padding):
         results = []
         for (start_x, start_y, end_x, end_y) in boxes:
             start_x = int(start_x * ratio_width)
@@ -311,7 +326,7 @@ class Auxiliary(object):
             end_y = min(height, end_y + (distance_y * 2))
             roi = image[start_y:end_y, start_x:end_x]
 
-            config = ("-l por --oem 1 --psm 7")
+            config = ('-l por --oem 1 --psm 7')
             text = ocr.image_to_string(roi, config=config)
 
             results.append(((start_x, start_y, end_x, end_y), text))

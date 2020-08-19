@@ -52,7 +52,7 @@ class ocr_table(object):
     def run_online_img_ocr(self, image):
         try:
             response = requests.get(image)
-        except:
+        except Exception:
             raise ConnectionError(
                 'you need to be connected to some internet network to download the EAST model.')
         image = Image.open(BytesIO(response.content))
