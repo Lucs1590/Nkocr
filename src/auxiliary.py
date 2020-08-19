@@ -209,3 +209,21 @@ class Auxiliary(object):
         threshold, bin_image = cv2.threshold(
             image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         return bin_image
+
+    def east_process(self, image):
+        _image                      = image.copy()
+        (_height, _width)           = self.get_size(image)
+        (ratio_height, ratio_width) = self.get_ratio(_height, _width)
+        
+        image                       = self.image_resize(image, height=640,  width=640)
+
+        (height, width)             = self.get_size(image)
+
+        net                         = cv2.dnn.readNet('frozen_east_text_detection.pb')
+        (scores, geometry)          = self.run_EAST(net, image, height, width)
+        (rects, confidences)        = self.decode_predictions(scores, geometry, 0.5)
+        boxes                       = non_max_suppression(np.array(rects), probs=confidences)
+        results, image              = self.apply_boxes(boxes, _image, ratio_height,ratio_width, _height, _width, 0.06)
+        sorted_results              = self.sort_boxes(results)
+
+        return sorted_results
