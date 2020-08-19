@@ -239,3 +239,15 @@ class Auxiliary(object):
 
     def get_ratio(self, height, width):
         return height / float(640),  width / float(640)
+
+    def run_EAST(self, net, image, H, W):
+        layerNames = [
+            "feature_fusion/Conv_7/Sigmoid",
+            "feature_fusion/concat_3"
+        ]
+        blob = cv2.dnn.blobFromImage(
+            image, 1.0, (H, W), (123.68, 116.78, 103.94), swapRB=True, crop=False)
+        net.setInput(blob)
+        (scores, geometry) = net.forward(layerNames)
+
+        return scores, geometry
