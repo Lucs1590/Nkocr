@@ -91,6 +91,8 @@ class ocr_table(object):
         image = self.aux.binarize_image(image)
         image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
 
+        sorted_results = self.aux.east_process(image)
+
         return image
 
     def remove_lines(self, image, colors):
