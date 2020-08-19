@@ -1,5 +1,6 @@
 import unittest
 import cv2
+import os
 
 import numpy as np
 
@@ -103,6 +104,7 @@ class TestAuxiliary(unittest.TestCase):
 
     def test_get_model(self):
         output = 'test/model.pb'
+        os.remove(output) if os.path.isfile(output) else ...
         model = aux.get_model_from_s3(output)
         self.assertTrue(isinstance(model, str))
 
