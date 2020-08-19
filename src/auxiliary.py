@@ -151,9 +151,12 @@ class Auxiliary(object):
             proportion = height / float(_height)
             dimensions = (int(_width * proportion), height)
 
-        else:
+        elif height is None:
             proportion = width / float(_width)
             dimensions = (width, int(_height * proportion))
+
+        else:
+            dimensions = (height, width)
 
         resized = cv2.resize(image, dimensions, interpolation=inter)
         resized = self.set_image_dpi(resized, 300)
