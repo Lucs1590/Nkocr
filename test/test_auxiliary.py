@@ -100,6 +100,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(bin_image_shape, expected_shape)
 
     def test_load_model(self):
+        enable_socket()
         model = aux.load_east_model()
         self.assertTrue(isinstance(model, str))
 
