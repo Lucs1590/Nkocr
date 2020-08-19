@@ -317,3 +317,17 @@ class Auxiliary(object):
                           (end_x, end_y), (0, 255, 0), 2)
 
         return results, image
+
+    def sort_boxes(self, boxes):
+        sorted_text = []
+        lines_values = sorted(list(set(map(lambda box: box[0][1], boxes))))
+        for value in lines_values:
+            words_of_line = sorted(
+                filter(lambda box: box[0][1] == value, boxes),
+                key=lambda box: box[0][0]
+            )
+            sorted_text.append(words_of_line)
+
+        flatten_sorted_text = [
+            item for sublist in sorted_text for item in sublist]
+        return flatten_sorted_text
