@@ -179,4 +179,15 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(len(results[0]), 3)
 
     def test_sort_boxes(self):
-        self.assertTrue(True)
+        boxes = [
+            [(630, 348, 869, 678), 'c'],
+            [(132, 348, 378, 678), 'a'],
+            [(390, 348, 620, 678), 'b']
+        ]
+        expected = [
+            [(132, 348, 378, 678), 'a'],
+            [(390, 348, 620, 678), 'b'],
+            [(630, 348, 869, 678), 'c']
+        ]
+        new_boxes = aux.sort_boxes(boxes)
+        self.assertEqual(expected, new_boxes)
