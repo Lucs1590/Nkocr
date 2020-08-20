@@ -122,3 +122,10 @@ class TestAuxiliary(unittest.TestCase):
         sizes = aux.get_size(image)
         are_numbers = isinstance(sizes[0], int) and isinstance(sizes[1], int)
         self.assertTrue(are_numbers)
+
+    def test_get_ratio(self):
+        image = get_cv_image()
+        ratios = aux.get_ratio(image.shape[0], image.shape[1])
+        are_numbers = isinstance(
+            ratios[0], float) and isinstance(ratios[1], float)
+        self.assertTrue(are_numbers)
