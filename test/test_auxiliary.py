@@ -85,10 +85,17 @@ class TestAuxiliary(unittest.TestCase):
         result = True if fst_color and snd_color and trd_color else False
         self.assertTrue(result)
 
-    def test_resize_image(self):
+    def test_resize_image_width(self):
         image = get_cv_image()
         image_shape = image.shape
-        image_returned = aux.image_resize(image, 4000)
+        image_returned = aux.image_resize(image, width=4000)
+        image_returned_shape = image_returned.shape
+        self.assertNotEqual(image_shape, image_returned_shape)
+
+    def test_resize_image_height(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image, height=4000)
         image_returned_shape = image_returned.shape
         self.assertNotEqual(image_shape, image_returned_shape)
 
@@ -98,6 +105,20 @@ class TestAuxiliary(unittest.TestCase):
         bin_image = aux.binarize_image(image)
         bin_image_shape = bin_image.shape
         self.assertEqual(bin_image_shape, expected_shape)
+
+    def test_resize_image_height_width(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image, 4000, 4000)
+        image_returned_shape = image_returned.shape
+        self.assertNotEqual(image_shape, image_returned_shape)
+
+    def test_resize_image(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image)
+        image_returned_shape = image_returned.shape
+        self.assertEqual(image_shape, image_returned_shape)
 
     def test_load_model(self):
         enable_socket()
