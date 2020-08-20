@@ -227,7 +227,7 @@ class Auxiliary(object):
 
         east_network = cv2.dnn.readNet(model)
         (scores, geometry) = self.run_east(east_network, image, height, width)
-        (rects, confidences) = self.decode_predictions(scores, geometry, 0.5)
+        (rects, confidences) = self.decode_predictions(scores, geometry, 0.7)
         boxes = non_max_suppression(np.array(rects), probs=confidences)
 
         (results, image) = self.apply_boxes(boxes, _image,
