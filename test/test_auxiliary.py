@@ -162,7 +162,13 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(len(east), 2)
 
     def test_decode_predictions(self):
-        self.assertTrue(True)
+        model = cv2.dnn.readNet(aux.load_east_model())
+        image = get_cv_image()
+        size = (640, 640)
+        east = aux.run_east(model, image, size[0], size[1])
+        min_confidence = 0.1
+        decode = aux.decode_predictions(east[0], east[1], min_confidence)
+        self.assertEqual(len(decode), 2)
 
     def test_apply_boxes(self):
         self.assertTrue(True)
