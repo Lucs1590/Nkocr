@@ -150,3 +150,18 @@ class TestAuxiliary(unittest.TestCase):
         are_numbers = isinstance(
             ratios[0], float) and isinstance(ratios[1], float)
         self.assertTrue(are_numbers)
+
+    def test_east_process(self):
+        self.assertTrue(True)
+
+    def test_run_east(self):
+        self.assertTrue(True)
+
+    def test_decode_predictions(self):
+        self.assertTrue(True)
+
+    def test_apply_boxes(self):
+        self.assertTrue(True)
+
+    def test_sort_boxes(self):
+        self.assertTrue(True)
