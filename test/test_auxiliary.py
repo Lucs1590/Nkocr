@@ -172,7 +172,7 @@ class TestAuxiliary(unittest.TestCase):
 
     def test_apply_boxes(self):
         boxes = np.array(
-            [[132, 348, 378, 678], [390, 348, 620, 678], [630, 348, 869, 678]])
+            [[630, 348, 869, 678], [132, 348, 378, 678], [390, 348, 620, 678]])
         image = aux.binarize_image(aux.image_resize(get_cv_image(), 1024))
         gray = (np.float32(), cv2.COLOR_RGB2GRAY)
         results = aux.apply_boxes(boxes, image, 1, 1, 1024, 1024, 0)
