@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(
     name='nkocr',
-    version='1.0.1',
+    version='1.1.0',
     description='This is a module to make specifics OCRs \
          at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',
