@@ -84,8 +84,10 @@ class ocr_table(object):
         image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
 
         sorted_results = self.aux.east_process(image)
+        sorted_chars = ' '.join(
+            map(lambda position_and_word: position_and_word[1], sorted_results))
 
-        return sorted_results
+        return sorted_chars
 
     def remove_lines(self, image, colors):
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
