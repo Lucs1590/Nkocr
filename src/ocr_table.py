@@ -55,23 +55,16 @@ class ocr_table(object):
         except Exception:
             raise ConnectionError(
                 'you need to be connected to some internet network to download the EAST model.')
-        image = Image.open(BytesIO(response.content))
-
-        image = self.run_pipeline(image)
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
+        phrase = self.run_pipeline(Image.open(BytesIO(response.content)))
 
         return phrase
 
     def run_path_img_ocr(self, image):
-        image = self.run_pipeline(Image.open(image))
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
-
+        phrase = self.run_pipeline(Image.open(image))
         return phrase
 
     def run_img_ocr(self, image):
-        image = self.run_pipeline(image)
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
-
+        phrase = self.run_pipeline(image)
         return phrase
 
     def run_pipeline(self, image):
@@ -92,7 +85,7 @@ class ocr_table(object):
 
         sorted_results = self.aux.east_process(image)
 
-        return image
+        return sorted_results
 
     def remove_lines(self, image, colors):
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
