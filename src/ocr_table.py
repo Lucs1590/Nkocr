@@ -1,4 +1,3 @@
-import requests
 import pytesseract
 import numpy as np
 import cv2
@@ -49,12 +48,8 @@ class ocr_table(object):
             raise NotImplementedError(
                 'method to this specific processing isn'"'"'t implemented yet!')
 
-    def run_online_img_ocr(self, image):
-        try:
-            response = requests.get(image)
-        except Exception:
-            raise ConnectionError(
-                'you need to be connected to some internet network to download the EAST model.')
+    def run_online_img_ocr(self, image_url):
+        response = self.aux.get_image_from_url(image_url)
         phrase = self.run_pipeline(Image.open(BytesIO(response.content)))
 
         return phrase
