@@ -50,24 +50,21 @@ class ocr_table(object):
                 'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image):
-        response = requests.get(image)
-        image = Image.open(BytesIO(response.content))
-
-        image = self.run_pipeline(image)
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
+        try:
+            response = requests.get(image)
+        except Exception:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
+        phrase = self.run_pipeline(Image.open(BytesIO(response.content)))
 
         return phrase
 
     def run_path_img_ocr(self, image):
-        image = self.run_pipeline(Image.open(image))
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
-
+        phrase = self.run_pipeline(Image.open(image))
         return phrase
 
     def run_img_ocr(self, image):
-        image = self.run_pipeline(image)
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
-
+        phrase = self.run_pipeline(image)
         return phrase
 
     def run_pipeline(self, image):
@@ -86,7 +83,11 @@ class ocr_table(object):
         image = self.aux.binarize_image(image)
         image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
 
-        return image
+        sorted_results = self.aux.east_process(image)
+        sorted_chars = ' '.join(
+            map(lambda position_and_word: position_and_word[1], sorted_results))
+
+        return sorted_chars
 
     def remove_lines(self, image, colors):
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

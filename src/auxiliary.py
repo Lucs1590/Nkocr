@@ -1,15 +1,46 @@
 import re
 import cv2
 import tempfile
+import sys
+import os
+import gdown
 
 import numpy as np
+import pytesseract as ocr
 
 from os import path
 from PIL import Image
 from sklearn.cluster import KMeans
+from imutils.object_detection import non_max_suppression
 
 
 class Auxiliary(object):
+
+    def load_east_model(self):
+        _path = list(
+            filter(lambda _path: 'site-packages' in _path, sys.path))[-1]
+        if _path:
+            if not path.isdir(_path+'/nkocr-model'):
+                os.mkdir(_path+'/nkocr-model')
+
+            model = _path + '/nkocr-model/frozen_east_text_detection.pb'
+            if not path.isfile(model):
+                self.get_model_from_s3(model)
+
+            return model
+        else:
+            raise OSError(
+                'the default directory of Python, site-packages, is not found.')
+
+    def get_model_from_s3(self, output):
+        url = 'https://project-elements-nk.s3.amazonaws.com/' +\
+            'frozen_east_text_detection.pb'
+        try:
+            gdown.download(url, output, quiet=False)
+            return output
+        except Exception:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
 
     def get_input_type(self, _input):
         if self.is_url(_input):
@@ -20,7 +51,7 @@ class Auxiliary(object):
             return 3
         else:
             raise TypeError(
-                'invalid input,try to send an url, path, numpy.ndarray or PIL.Image.')
+                'invalid input, try to send an url, path, numpy.ndarray or PIL.Image.')
 
     def is_url(self, _input):
         if isinstance(_input, str):
@@ -82,8 +113,7 @@ class Auxiliary(object):
         return image[:, :, :3]
 
     def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
-        adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
-        return adjusted_image
+        return cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
 
     def run_kmeans(self, image, number_clusters):
         image = image.reshape((image.shape[0] * image.shape[1], 3))
@@ -101,11 +131,10 @@ class Auxiliary(object):
         return histogram
 
     def sort_colors(self, histogram, centroids):
-        aux = {}
+        sorted_colors = {}
         for (percentage, color) in zip(histogram, centroids):
-            aux[tuple(color.astype('uint8').tolist())] = percentage
-        aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
-        return aux
+            sorted_colors[tuple(color.astype('uint8').tolist())] = percentage
+        return sorted(sorted_colors.items(), key=lambda x: x[1], reverse=True)
 
     def image_resize(self,
                      image,
@@ -122,9 +151,12 @@ class Auxiliary(object):
             proportion = height / float(_height)
             dimensions = (int(_width * proportion), height)
 
-        else:
+        elif height is None:
             proportion = width / float(_width)
             dimensions = (width, int(_height * proportion))
+
+        else:
+            dimensions = (height, width)
 
         resized = cv2.resize(image, dimensions, interpolation=inter)
         resized = self.set_image_dpi(resized, 300)
@@ -180,3 +212,137 @@ class Auxiliary(object):
         threshold, bin_image = cv2.threshold(
             image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         return bin_image
+
+    def east_process(self, image):
+        _image = image.copy()
+        (_height, _width) = self.get_size(image)
+        (ratio_height, ratio_width) = self.get_ratio(_height, _width)
+
+        image = self.image_resize(image, height=640,  width=640)
+        (height, width) = self.get_size(image)
+
+        model = self.load_east_model()
+
+        east_network = cv2.dnn.readNet(model)
+        (scores, geometry) = self.run_east(east_network, image, height, width)
+        (rects, confidences) = self.decode_predictions(scores, geometry, 0.7)
+        boxes = non_max_suppression(np.array(rects), probs=confidences)
+
+        (results, image) = self.apply_boxes(boxes, _image,
+                                            ratio_height, ratio_width,
+                                            _height, _width, 0.06)
+        sorted_results = self.sort_boxes(results)
+
+        return sorted_results
+
+    def get_size(self, image):
+        return image.shape[0], image.shape[1]
+
+    def get_ratio(self, height, width):
+        return height / float(640),  width / float(640)
+
+    def run_east(self, net, image, height, width):
+        layer_names = [
+            'feature_fusion/Conv_7/Sigmoid',
+            'feature_fusion/concat_3'
+        ]
+        blob = cv2.dnn.blobFromImage(
+            image, 1.0, (height, width),
+            (123.68, 116.78, 103.94), swapRB=True, crop=False)
+        net.setInput(blob)
+        (scores, geometry) = net.forward(layer_names)
+
+        return scores, geometry
+
+    def decode_predictions(self, scores, geometry, min_confidence):
+        (num_rows, num_cols) = scores.shape[2:4]
+        rects = []
+        confidences = []
+
+        for constant_y in range(0, num_rows):
+            scores_data = scores[0, 0, constant_y]
+
+            point_0 = geometry[0, 0, constant_y]
+            point_1 = geometry[0, 1, constant_y]
+            point_2 = geometry[0, 2, constant_y]
+            point_3 = geometry[0, 3, constant_y]
+
+            angles = geometry[0, 4, constant_y]
+
+            for constant_x in range(0, num_cols):
+                if scores_data[constant_x] < min_confidence:
+                    continue
+
+                (offset_x, offset_y) = (constant_x * 4.0, constant_y * 4.0)
+
+                angle = angles[constant_x]
+                cos = np.cos(angle)
+                sin = np.sin(angle)
+
+                height = point_0[constant_x] + point_2[constant_x]
+                width = point_1[constant_x] + point_3[constant_x]
+
+                end_x = int(
+                    offset_x +
+                    (cos * point_1[constant_x]) +
+                    (sin * point_2[constant_x])
+                )
+                end_y = int(
+                    offset_y -
+                    (sin * point_1[constant_x]) +
+                    (cos * point_2[constant_x])
+                )
+                start_x = int(end_x - width)
+                start_y = int(end_y - height)
+
+                rects.append((start_x, start_y, end_x, end_y))
+                confidences.append(scores_data[constant_x])
+
+        return (rects, confidences)
+
+    def apply_boxes(self,
+                    boxes,
+                    image,
+                    ratio_height,
+                    ratio_width,
+                    height,
+                    width,
+                    padding):
+        results = []
+        for (start_x, start_y, end_x, end_y) in boxes:
+            start_x = int(start_x * ratio_width)
+            start_y = int(start_y * ratio_height)
+            end_x = int(end_x * ratio_width)
+            end_y = int(end_y * ratio_height)
+
+            distance_x = int((end_x - start_x) * padding)
+            distance_y = int((end_y - start_y) * padding)
+
+            start_x = max(0, start_x - distance_x)
+            start_y = max(0, start_y - distance_y)
+            end_x = min(width, end_x + (distance_x * 2))
+            end_y = min(height, end_y + (distance_y * 2))
+            roi = image[start_y:end_y, start_x:end_x]
+
+            config = ('-l por --oem 1 --psm 7')
+            text = ocr.image_to_string(roi, config=config)
+
+            results.append(((start_x, start_y, end_x, end_y), text))
+            cv2.rectangle(image, (start_x, start_y),
+                          (end_x, end_y), (0, 255, 0), 2)
+
+        return results, image
+
+    def sort_boxes(self, boxes):
+        sorted_text = []
+        lines_values = sorted(list(set(map(lambda box: box[0][1], boxes))))
+        for value in lines_values:
+            words_of_line = sorted(
+                filter(lambda box: box[0][1] == value, boxes),
+                key=lambda box: box[0][0]
+            )
+            sorted_text.append(words_of_line)
+
+        flatten_sorted_text = [
+            item for sublist in sorted_text for item in sublist]
+        return flatten_sorted_text

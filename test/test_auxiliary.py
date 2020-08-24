@@ -1,15 +1,16 @@
 import unittest
 import cv2
+import os
 
 import numpy as np
 
 from PIL import Image
 from src.auxiliary import Auxiliary
 from sklearn.cluster import KMeans
+from pytest_socket import disable_socket, enable_socket
 
 
 aux = Auxiliary()
-
 
 def get_pil_image():
     return Image.open('test/ocr.png')
@@ -20,9 +21,6 @@ def get_cv_image():
 
 
 class TestAuxiliary(unittest.TestCase):
-
-    def test_of_tests(self):
-        self.assertTrue(True)
 
     def test_image_type(self):
         image = get_pil_image()
@@ -83,10 +81,17 @@ class TestAuxiliary(unittest.TestCase):
         result = True if fst_color and snd_color and trd_color else False
         self.assertTrue(result)
 
-    def test_resize_image(self):
+    def test_resize_image_width(self):
         image = get_cv_image()
         image_shape = image.shape
-        image_returned = aux.image_resize(image, 4000)
+        image_returned = aux.image_resize(image, width=4000)
+        image_returned_shape = image_returned.shape
+        self.assertNotEqual(image_shape, image_returned_shape)
+
+    def test_resize_image_height(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image, height=4000)
         image_returned_shape = image_returned.shape
         self.assertNotEqual(image_shape, image_returned_shape)
 
@@ -96,3 +101,89 @@ class TestAuxiliary(unittest.TestCase):
         bin_image = aux.binarize_image(image)
         bin_image_shape = bin_image.shape
         self.assertEqual(bin_image_shape, expected_shape)
+
+    def test_resize_image_height_width(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image, 4000, 4000)
+        image_returned_shape = image_returned.shape
+        self.assertNotEqual(image_shape, image_returned_shape)
+
+    def test_resize_image(self):
+        image = get_cv_image()
+        image_shape = image.shape
+        image_returned = aux.image_resize(image)
+        image_returned_shape = image_returned.shape
+        self.assertEqual(image_shape, image_returned_shape)
+
+    def test_load_model(self):
+        enable_socket()
+        model = aux.load_east_model()
+        self.assertTrue(isinstance(model, str))
+
+    def test_get_model(self):
+        enable_socket()
+        output = 'test/model.pb'
+        os.remove(output) if os.path.isfile(output) else ...
+        model = aux.get_model_from_s3(output)
+        self.assertTrue(isinstance(model, str))
+
+    def test_get_model_error(self):
+        disable_socket()
+        output = 'test/model.pb'
+        with self.assertRaises(ConnectionError):
+            aux.get_model_from_s3(output)
+
+    def test_get_size(self):
+        image = get_cv_image()
+        sizes = aux.get_size(image)
+        are_numbers = isinstance(sizes[0], int) and isinstance(sizes[1], int)
+        self.assertTrue(are_numbers)
+
+    def test_get_ratio(self):
+        image = get_cv_image()
+        ratios = aux.get_ratio(image.shape[0], image.shape[1])
+        are_numbers = isinstance(
+            ratios[0], float) and isinstance(ratios[1], float)
+        self.assertTrue(are_numbers)
+
+    def test_east_process(self):
+        self.assertTrue(True)
+
+    def test_run_east(self):
+        model = cv2.dnn.readNet(aux.load_east_model())
+        image = get_cv_image()
+        size = (640, 640)
+        east = aux.run_east(model, image, size[0], size[1])
+        self.assertEqual(len(east), 2)
+
+    def test_decode_predictions(self):
+        model = cv2.dnn.readNet(aux.load_east_model())
+        image = get_cv_image()
+        size = (640, 640)
+        east = aux.run_east(model, image, size[0], size[1])
+        min_confidence = 0.1
+        decode = aux.decode_predictions(east[0], east[1], min_confidence)
+        self.assertEqual(len(decode), 2)
+
+    def test_apply_boxes(self):
+        boxes = np.array(
+            [[630, 348, 869, 678], [132, 348, 378, 678], [390, 348, 620, 678]])
+        image = aux.binarize_image(aux.image_resize(get_cv_image(), 1024))
+        gray = (np.float32(), cv2.COLOR_RGB2GRAY)
+        results = aux.apply_boxes(boxes, image, 1, 1, 1024, 1024, 0)
+        self.assertEqual(len(results[0]), 3)
+
+    def test_sort_boxes(self):
+        boxes = [
+            [(630, 348, 869, 678), 'c'],
+            [(132, 348, 378, 678), 'a'],
+            [(390, 348, 620, 678), 'b']
+        ]
+        expected = [
+            [(132, 348, 378, 678), 'a'],
+            [(390, 348, 620, 678), 'b'],
+            [(630, 348, 869, 678), 'c']
+        ]
+        new_boxes = aux.sort_boxes(boxes)
+        self.assertEqual(expected, new_boxes)

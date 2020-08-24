@@ -15,8 +15,7 @@ https://github.com/tesseract-ocr/tesseract
 The installation of tesseract on the **Linux** system can be done in a few commands:
 
 ```bash
-$ sudo apt install tesseract-ocr tesseract-ocr-por
-$ sudo apt install libtesseract-dev
+$ sudo apt install tesseract-ocr tesseract-ocr-por libtesseract-dev
 ```
 
 And the same goes for **macOS**. There is a variation between MacPorts and Homebrew, but in this post I will only quote the version of Homebrew:
