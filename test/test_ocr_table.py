@@ -7,9 +7,6 @@ from pytest_socket import disable_socket, enable_socket
 
 class TestTable(unittest.TestCase):
 
-    def test_of_tests(self):
-        self.assertTrue(True)
-
     def test_path_processing(self):
         text = ocr_table('test/ocr.png')
         type_output = isinstance(text.text, str)
