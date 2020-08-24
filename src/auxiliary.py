@@ -51,7 +51,7 @@ class Auxiliary(object):
             return 3
         else:
             raise TypeError(
-                'invalid input,try to send an url, path, numpy.ndarray or PIL.Image.')
+                'invalid input, try to send an url, path, numpy.ndarray or PIL.Image.')
 
     def is_url(self, _input):
         if isinstance(_input, str):
@@ -113,8 +113,7 @@ class Auxiliary(object):
         return image[:, :, :3]
 
     def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
-        adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
-        return adjusted_image
+        return cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
 
     def run_kmeans(self, image, number_clusters):
         image = image.reshape((image.shape[0] * image.shape[1], 3))
