@@ -51,7 +51,7 @@ class Auxiliary(object):
             return 3
         else:
             raise TypeError(
-                'invalid input,try to send an url, path, numpy.ndarray or PIL.Image.')
+                'invalid input, try to send an url, path, numpy.ndarray or PIL.Image.')
 
     def is_url(self, _input):
         if isinstance(_input, str):
@@ -113,8 +113,7 @@ class Auxiliary(object):
         return image[:, :, :3]
 
     def brightness_contrast_optimization(self, image, alpha=1.5, beta=0):
-        adjusted_image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
-        return adjusted_image
+        return cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
 
     def run_kmeans(self, image, number_clusters):
         image = image.reshape((image.shape[0] * image.shape[1], 3))
@@ -132,11 +131,10 @@ class Auxiliary(object):
         return histogram
 
     def sort_colors(self, histogram, centroids):
-        aux = {}
+        sorted_colors = {}
         for (percentage, color) in zip(histogram, centroids):
-            aux[tuple(color.astype('uint8').tolist())] = percentage
-        aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
-        return aux
+            sorted_colors[tuple(color.astype('uint8').tolist())] = percentage
+        return sorted(sorted_colors.items(), key=lambda x: x[1], reverse=True)
 
     def image_resize(self,
                      image,

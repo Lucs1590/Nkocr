@@ -12,7 +12,6 @@ from pytest_socket import disable_socket, enable_socket
 
 aux = Auxiliary()
 
-
 def get_pil_image():
     return Image.open('test/ocr.png')
 
@@ -22,9 +21,6 @@ def get_cv_image():
 
 
 class TestAuxiliary(unittest.TestCase):
-
-    def test_of_tests(self):
-        self.assertTrue(True)
 
     def test_image_type(self):
         image = get_pil_image()
