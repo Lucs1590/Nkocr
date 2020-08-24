@@ -7,9 +7,6 @@ from pytest_socket import disable_socket, enable_socket
 
 class TestProduct(unittest.TestCase):
 
-    def test_of_tests(self):
-        self.assertTrue(True)
-
     def test_path_processing(self):
         text = ocr_product('test/ocr.png')
         type_output = isinstance(text.text, str)
