@@ -1,4 +1,3 @@
-import pytesseract
 import numpy as np
 import cv2
 
@@ -89,24 +88,37 @@ class ocr_table(object):
         threshold_value, bin_image = cv2.threshold(
             gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
-        horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
-        vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
+        h_contours = self.get_horizontal_contours(bin_image)
+        v_contours = self.get_vertical_contours(bin_image)
 
-        detected_h_lines = cv2.morphologyEx(
-            bin_image, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
-        detected_v_lines = cv2.morphologyEx(
-            bin_image, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
-
-        h_contours = cv2.findContours(
-            detected_h_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        h_contours = h_contours[0] if len(h_contours) == 2 else h_contours[1]
         for contour in h_contours:
             cv2.drawContours(image, [contour], -1, colors[0][0], 2)
 
-        v_contours = cv2.findContours(
-            detected_v_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        v_contours = v_contours[0] if len(v_contours) == 2 else v_contours[1]
         for contour in v_contours:
             cv2.drawContours(image, [contour], -1, colors[0][0], 2)
 
         return image
+
+    def get_horizontal_contours(self, bin_image):
+        horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (25, 1))
+
+        detected_h_lines = cv2.morphologyEx(
+            bin_image, cv2.MORPH_OPEN, horizontal_kernel, iterations=2)
+
+        h_contours = cv2.findContours(
+            detected_h_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        h_contours = h_contours[0] if len(h_contours) == 2 else h_contours[1]
+
+        return h_contours
+
+    def get_vertical_contours(self, bin_image):
+        vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, 25))
+        
+        detected_v_lines = cv2.morphologyEx(
+            bin_image, cv2.MORPH_OPEN, vertical_kernel, iterations=2)
+        
+        v_contours = cv2.findContours(
+            detected_v_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        v_contours = v_contours[0] if len(v_contours) == 2 else v_contours[1]
+
+        return v_contours
