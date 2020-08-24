@@ -39,7 +39,7 @@ class TestTable(unittest.TestCase):
             len(eval(repr(text_and_time))) > 1
         self.assertTrue(has_time)
 
-    def test_wrong_type(self):
+    def test_wrong_parameter_type(self):
         image = Image.open('test/ocr.png')
         with self.assertRaises(TypeError):
             ocr_table(image, True)
