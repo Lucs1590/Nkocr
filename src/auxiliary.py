@@ -131,11 +131,10 @@ class Auxiliary(object):
         return histogram
 
     def sort_colors(self, histogram, centroids):
-        aux = {}
+        sorted_colors = {}
         for (percentage, color) in zip(histogram, centroids):
-            aux[tuple(color.astype('uint8').tolist())] = percentage
-        aux = sorted(aux.items(), key=lambda x: x[1], reverse=True)
-        return aux
+            sorted_colors[tuple(color.astype('uint8').tolist())] = percentage
+        return sorted(sorted_colors.items(), key=lambda x: x[1], reverse=True)
 
     def image_resize(self,
                      image,
