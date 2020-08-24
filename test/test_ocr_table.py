@@ -17,14 +17,14 @@ class TestTable(unittest.TestCase):
 
     def test_url_processing(self):
         enable_socket()
-        text = ocr_table('https://img.icons8.com/all/500/general-ocr.png')
+        text = ocr_table('https://project-elements-nk.s3.amazonaws.com/ocr.png')
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
     def test_url_processing_error(self):
         disable_socket()
         with self.assertRaises(ConnectionError):
-            ocr_table('https://img.icons8.com/all/500/general-ocr.png')
+            ocr_table('https://project-elements-nk.s3.amazonaws.com/ocr.png')
 
     def test_image_processing(self):
         image = Image.open('test/ocr.png')
