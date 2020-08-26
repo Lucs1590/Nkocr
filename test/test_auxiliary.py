@@ -1,16 +1,14 @@
 import unittest
-import cv2
 import os
+import cv2
 
 import numpy as np
 
 from PIL import Image
-from src.auxiliary import Auxiliary
 from sklearn.cluster import KMeans
 from pytest_socket import disable_socket, enable_socket
+import src.auxiliary as aux
 
-
-aux = Auxiliary()
 
 def get_pil_image():
     return Image.open('test/ocr.png')
@@ -78,7 +76,7 @@ class TestAuxiliary(unittest.TestCase):
         fst_color = (list(sorted_colors[0][0]) == colors[-1]).all()
         snd_color = (list(sorted_colors[1][0]) == colors[-2]).all()
         trd_color = (list(sorted_colors[2][0]) == colors[0]).all()
-        result = True if fst_color and snd_color and trd_color else False
+        result = fst_color and snd_color and trd_color
         self.assertTrue(result)
 
     def test_resize_image_width(self):

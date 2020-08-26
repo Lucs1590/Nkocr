@@ -1,13 +1,13 @@
+from time import time
+from io import BytesIO
 import pytesseract
 
 from PIL import Image
-from time import time
-from io import BytesIO
 
-from src.auxiliary import Auxiliary
+import src.auxiliary as aux
 
 
-class ocr_product(object):
+class OcrProduct:
     def __init__(self,
                  image,
                  language: str = 'por',
@@ -15,7 +15,7 @@ class ocr_product(object):
         self.define_global_vars(language, show_performace)
         started_time = time()
 
-        input_type = self.aux.get_input_type(image)
+        input_type = aux.get_input_type(image)
         self.text = self.process_image(image, input_type)
 
         self.execution_time = time() - started_time
@@ -26,7 +26,6 @@ class ocr_product(object):
             else repr([self.text, self.show_performace])
 
     def define_global_vars(self, language, show_performace):
-        self.aux = Auxiliary()
         if isinstance(language, str) and isinstance(show_performace, bool):
             self.lang = language
             self.show_performace = show_performace
@@ -36,18 +35,20 @@ class ocr_product(object):
 
     def process_image(self, image, _type):
         if _type == 1:
-            return self.run_online_img_ocr(image)
+            processed_img = self.run_online_img_ocr(image)
         elif _type == 2:
-            return self.run_path_img_ocr(image)
+            processed_img = self.run_path_img_ocr(image)
         elif _type == 3:
-            return self.run_img_ocr(image)
+            processed_img = self.run_img_ocr(image)
         else:
             raise NotImplementedError(
                 'method to this specific processing isn'"'"'t implemented yet!')
+        return processed_img
 
     def run_online_img_ocr(self, image_url):
-        image = self.aux.get_image_from_url(image_url)
-        phrase = pytesseract.image_to_string(Image.open(BytesIO(image.content)), lang=self.lang)
+        image = aux.get_image_from_url(image_url)
+        phrase = pytesseract.image_to_string(
+            Image.open(BytesIO(image.content)), lang=self.lang)
         return phrase
 
     def run_path_img_ocr(self, image):
