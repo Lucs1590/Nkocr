@@ -46,9 +46,8 @@ class ocr_product(object):
                 'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image_url):
-        response = self.aux.get_image_from_url(image_url)
-        image = Image.open(BytesIO(response.content))
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
+        image = self.aux.get_image_from_url(image_url)
+        phrase = pytesseract.image_to_string(Image.open(BytesIO(image.content)), lang=self.lang)
         return phrase
 
     def run_path_img_ocr(self, image):

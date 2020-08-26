@@ -48,8 +48,8 @@ class ocr_table(object):
                 'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image_url):
-        response = self.aux.get_image_from_url(image_url)
-        phrase = self.run_pipeline(Image.open(BytesIO(response.content)))
+        image = self.aux.get_image_from_url(image_url)
+        phrase = self.run_pipeline(Image.open(BytesIO(image.content)))
 
         return phrase
 
