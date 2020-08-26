@@ -12,6 +12,7 @@ from pytest_socket import disable_socket, enable_socket
 
 aux = Auxiliary()
 
+
 def get_pil_image():
     return Image.open('test/ocr.png')
 

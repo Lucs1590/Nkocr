@@ -14,7 +14,8 @@ class TestTable(unittest.TestCase):
 
     def test_url_processing(self):
         enable_socket()
-        text = ocr_table('https://project-elements-nk.s3.amazonaws.com/ocr.png')
+        text = ocr_table(
+            'https://project-elements-nk.s3.amazonaws.com/ocr.png')
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
