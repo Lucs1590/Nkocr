@@ -47,7 +47,7 @@ class OcrTable(object):
                 'method to this specific processing isn'"'"'t implemented yet!')
 
     def run_online_img_ocr(self, image_url):
-        image = self.aux.get_image_from_url(image_url)
+        image = aux.get_image_from_url(image_url)
         phrase = self.run_pipeline(Image.open(BytesIO(image.content)))
 
         return phrase
