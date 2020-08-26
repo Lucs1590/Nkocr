@@ -5,7 +5,7 @@ from PIL import Image
 from time import time
 from io import BytesIO
 
-from auxiliary import Auxiliary
+from src.auxiliary import Auxiliary
 
 
 class ocr_table(object):
