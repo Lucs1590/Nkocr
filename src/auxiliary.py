@@ -354,5 +354,5 @@ class Auxiliary(object):
         except Exception:
             raise ConnectionError(
                 'you need to be connected to some internet network to download the EAST model.')
-        
+
         return response
