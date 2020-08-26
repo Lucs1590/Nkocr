@@ -4,6 +4,7 @@ import tempfile
 import sys
 import os
 import gdown
+import requests
 
 import numpy as np
 import pytesseract as ocr
@@ -346,3 +347,12 @@ class Auxiliary(object):
         flatten_sorted_text = [
             item for sublist in sorted_text for item in sublist]
         return flatten_sorted_text
+
+    def get_image_from_url(self, url):
+        try:
+            response = requests.get(url)
+        except Exception:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
+
+        return response

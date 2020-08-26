@@ -1,4 +1,3 @@
-import requests
 import pytesseract
 
 from PIL import Image
@@ -46,14 +45,9 @@ class ocr_product(object):
             raise NotImplementedError(
                 'method to this specific processing isn'"'"'t implemented yet!')
 
-    def run_online_img_ocr(self, image):
-        try:
-            response = requests.get(image)
-        except Exception:
-            raise ConnectionError(
-                'you need to be connected to some internet network to download the EAST model.')
-        image = Image.open(BytesIO(response.content))
-        phrase = pytesseract.image_to_string(image, lang=self.lang)
+    def run_online_img_ocr(self, image_url):
+        image = self.aux.get_image_from_url(image_url)
+        phrase = pytesseract.image_to_string(Image.open(BytesIO(image.content)), lang=self.lang)
         return phrase
 
     def run_path_img_ocr(self, image):
