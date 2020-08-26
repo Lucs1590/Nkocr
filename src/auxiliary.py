@@ -1,14 +1,14 @@
 import re
-import cv2
 import tempfile
 import sys
 import os
+from os import path
 import gdown
+import cv2
 
 import numpy as np
 import pytesseract as ocr
 
-from os import path
 from PIL import Image
 from sklearn.cluster import KMeans
 from imutils.object_detection import non_max_suppression
@@ -27,10 +27,11 @@ class Auxiliary(object):
             if not path.isfile(model):
                 self.get_model_from_s3(model)
 
-            return model
         else:
             raise OSError(
                 'the default directory of Python, site-packages, is not found.')
+
+        return model
 
     def get_model_from_s3(self, output):
         url = 'https://project-elements-nk.s3.amazonaws.com/' +\
@@ -44,14 +45,15 @@ class Auxiliary(object):
 
     def get_input_type(self, _input):
         if self.is_url(_input):
-            return 1
+            input_type = 1
         elif self.is_path(_input):
-            return 2
+            input_type = 2
         elif self.is_image(_input):
-            return 3
+            input_type = 3
         else:
             raise TypeError(
                 'invalid input, try to send an url, path, numpy.ndarray or PIL.Image.')
+        return input_type
 
     def is_url(self, _input):
         if isinstance(_input, str):
@@ -63,16 +65,20 @@ class Auxiliary(object):
                 r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})'  # ...or ip
                 r'(?::\d+)?'  # optional port
                 r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-            return re.match(regex, _input) is not None
+            result = re.match(regex, _input) is not None
         else:
-            return False
+            result = False
+
+        return result
 
     def is_path(self, _input):
         if isinstance(_input, str):
             file_path = path.realpath(_input)
-            return path.isfile(file_path)
+            result = path.isfile(file_path)
         else:
-            return False
+            result = False
+
+        return result
 
     def is_image(self, _input):
         numpy_type = str(type(_input)) == \
@@ -96,15 +102,13 @@ class Auxiliary(object):
             type(_input)) == \
             '<class '"'"'PIL.TiffImagePlugin.TiffImageFile'"'"'>'
 
-        return True \
-            if numpy_type or \
+        return numpy_type or \
             plt_bmp_type or \
             plt_gif_type or \
             plt_jpg_type or \
             plt_png_type or \
             plt_ppm_type or \
-            plt_tiff_type else \
-            False
+            plt_tiff_type
 
     def to_opencv_type(self, image):
         return np.asarray(image)[:, :, ::-1]
@@ -209,8 +213,8 @@ class Auxiliary(object):
 
     def binarize_image(self, image):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        threshold, bin_image = cv2.threshold(
-            image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        bin_image = cv2.threshold(
+            image, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
         return bin_image
 
     def east_process(self, image):
@@ -218,7 +222,7 @@ class Auxiliary(object):
         (_height, _width) = self.get_size(image)
         (ratio_height, ratio_width) = self.get_ratio(_height, _width)
 
-        image = self.image_resize(image, height=640,  width=640)
+        image = self.image_resize(image, height=640, width=640)
         (height, width) = self.get_size(image)
 
         model = self.load_east_model()
@@ -239,7 +243,7 @@ class Auxiliary(object):
         return image.shape[0], image.shape[1]
 
     def get_ratio(self, height, width):
-        return height / float(640),  width / float(640)
+        return height / float(640), width / float(640)
 
     def run_east(self, net, image, height, width):
         layer_names = [
