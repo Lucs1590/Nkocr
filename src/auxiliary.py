@@ -240,9 +240,7 @@ def east_process(image):
     image = image_resize(image, height=640, width=640)
     (height, width) = get_size(image)
 
-    model = load_east_model()
-
-    east_network = cv2.dnn.readNet(model)
+    east_network = cv2.dnn.readNet(load_east_model())
     (scores, geometry) = run_east(east_network, image, height, width)
     (rects, confidences) = decode_predictions(scores, geometry, 0.7)
     boxes = non_max_suppression(np.array(rects), probs=confidences)
@@ -250,9 +248,8 @@ def east_process(image):
     (results, image) = apply_boxes(boxes, _image,
                                    ratio_height, ratio_width,
                                    _height, _width, 0.06)
-    sorted_results = sort_boxes(results)
 
-    return sorted_results
+    return sort_boxes(results)
 
 
 def get_size(image):

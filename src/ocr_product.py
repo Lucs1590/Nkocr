@@ -7,7 +7,7 @@ from PIL import Image
 import src.auxiliary as aux
 
 
-class OcrProduct(object):
+class OcrProduct:
     def __init__(self,
                  image,
                  language: str = 'por',
@@ -35,14 +35,15 @@ class OcrProduct(object):
 
     def process_image(self, image, _type):
         if _type == 1:
-            return self.run_online_img_ocr(image)
+            processed_img = self.run_online_img_ocr(image)
         elif _type == 2:
-            return self.run_path_img_ocr(image)
+            processed_img = self.run_path_img_ocr(image)
         elif _type == 3:
-            return self.run_img_ocr(image)
+            processed_img = self.run_img_ocr(image)
         else:
             raise NotImplementedError(
                 'method to this specific processing isn'"'"'t implemented yet!')
+        return processed_img
 
     def run_online_img_ocr(self, image_url):
         image = aux.get_image_from_url(image_url)
