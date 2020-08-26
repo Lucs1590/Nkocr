@@ -121,13 +121,6 @@ class TestAuxiliary(unittest.TestCase):
         model = aux.load_east_model()
         self.assertTrue(isinstance(model, str))
 
-    def test_get_model(self):
-        enable_socket()
-        output = 'test/model.pb'
-        os.remove(output) if os.path.isfile(output) else ...
-        model = aux.get_model_from_s3(output)
-        self.assertTrue(isinstance(model, str))
-
     def test_get_model_error(self):
         disable_socket()
         output = 'test/model.pb'
