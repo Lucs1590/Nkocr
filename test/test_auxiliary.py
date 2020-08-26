@@ -76,7 +76,7 @@ class TestAuxiliary(unittest.TestCase):
         fst_color = (list(sorted_colors[0][0]) == colors[-1]).all()
         snd_color = (list(sorted_colors[1][0]) == colors[-2]).all()
         trd_color = (list(sorted_colors[2][0]) == colors[0]).all()
-        result = True if fst_color and snd_color and trd_color else False
+        result = fst_color and snd_color and trd_color
         self.assertTrue(result)
 
     def test_resize_image_width(self):
