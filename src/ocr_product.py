@@ -8,7 +8,7 @@ from io import BytesIO
 from src.auxiliary import Auxiliary
 
 
-class ocr_product(object):
+class OcrProduct(object):
     def __init__(self,
                  image,
                  language: str = 'por',
