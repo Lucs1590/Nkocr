@@ -147,7 +147,9 @@ class TestAuxiliary(unittest.TestCase):
         self.assertTrue(are_numbers)
 
     def test_east_process(self):
-        self.assertTrue(True)
+        image = get_cv_image()
+        result = aux.east_process(image)
+        self.assertIsNotNone(result)
 
     def test_run_east(self):
         model = cv2.dnn.readNet(aux.load_east_model())

@@ -5,6 +5,7 @@ import os
 from os import path
 import gdown
 import cv2
+import requests
 
 import numpy as np
 import pytesseract as ocr
@@ -324,13 +325,13 @@ def decode_predictions(scores, geometry, min_confidence):
 
 
 def apply_boxes(
-                boxes,
-                image,
-                ratio_height,
-                ratio_width,
-                height,
-                width,
-                padding):
+        boxes,
+        image,
+        ratio_height,
+        ratio_width,
+        height,
+        width,
+        padding):
     results = []
     for (start_x, start_y, end_x, end_y) in boxes:
         start_x = int(start_x * ratio_width)
@@ -370,3 +371,12 @@ def sort_boxes(boxes):
     flatten_sorted_text = [
         item for sublist in sorted_text for item in sublist]
     return flatten_sorted_text
+
+    def get_image_from_url(self, url):
+        try:
+            response = requests.get(url)
+        except Exception:
+            raise ConnectionError(
+                'you need to be connected to some internet network to download the EAST model.')
+
+        return response
