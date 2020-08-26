@@ -1,11 +1,11 @@
+from time import time
+from io import BytesIO
 import requests
 import pytesseract
 
 from PIL import Image
-from time import time
-from io import BytesIO
 
-from src.auxiliary import Auxiliary
+import src.auxiliary as aux
 
 
 class OcrProduct(object):
@@ -16,7 +16,7 @@ class OcrProduct(object):
         self.define_global_vars(language, show_performace)
         started_time = time()
 
-        input_type = self.aux.get_input_type(image)
+        input_type = aux.get_input_type(image)
         self.text = self.process_image(image, input_type)
 
         self.execution_time = time() - started_time
@@ -27,7 +27,6 @@ class OcrProduct(object):
             else repr([self.text, self.show_performace])
 
     def define_global_vars(self, language, show_performace):
-        self.aux = Auxiliary()
         if isinstance(language, str) and isinstance(show_performace, bool):
             self.lang = language
             self.show_performace = show_performace

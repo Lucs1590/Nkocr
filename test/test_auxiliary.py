@@ -1,16 +1,13 @@
 import unittest
-import cv2
 import os
+import cv2
 
 import numpy as np
 
 from PIL import Image
-from src.auxiliary import Auxiliary
 from sklearn.cluster import KMeans
 from pytest_socket import disable_socket, enable_socket
-
-
-aux = Auxiliary()
+import src.auxiliary as aux
 
 
 def get_pil_image():
@@ -125,7 +122,8 @@ class TestAuxiliary(unittest.TestCase):
     def test_get_model(self):
         enable_socket()
         output = 'test/model.pb'
-        os.remove(output) if os.path.isfile(output) else ...
+        if os.path.isfile(output):
+            os.remove(output)
         model = aux.get_model_from_s3(output)
         self.assertTrue(isinstance(model, str))
 

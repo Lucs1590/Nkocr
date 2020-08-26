@@ -6,7 +6,7 @@ from PIL import Image
 from time import time
 from io import BytesIO
 
-from src.auxiliary import Auxiliary
+import src.auxiliary as aux
 
 
 class OcrTable(object):
@@ -17,7 +17,7 @@ class OcrTable(object):
         self.define_global_vars(language, show_performace)
         started_time = time()
 
-        input_type = self.aux.get_input_type(image)
+        input_type = aux.get_input_type(image)
         self.text = self.process_image(image, input_type)
 
         self.execution_time = time() - started_time
@@ -28,7 +28,6 @@ class OcrTable(object):
             else repr([self.text, self.show_performace])
 
     def define_global_vars(self, language, show_performace):
-        self.aux = Auxiliary()
         if isinstance(language, str) and \
                 isinstance(show_performace, bool):
             self.lang = language
@@ -68,21 +67,21 @@ class OcrTable(object):
 
     def run_pipeline(self, image):
         if not isinstance(image, np.ndarray):
-            image = self.aux.to_opencv_type(image)
-        image = self.aux.remove_alpha_channel(image)
-        image = self.aux.brightness_contrast_optimization(image, 1, 0.5)
-        colors = self.aux.run_kmeans(image, 2)
+            image = aux.to_opencv_type(image)
+        image = aux.remove_alpha_channel(image)
+        image = aux.brightness_contrast_optimization(image, 1, 0.5)
+        colors = aux.run_kmeans(image, 2)
         image = self.remove_lines(image, colors)
-        image = self.aux.image_resize(image, height=image.shape[0]*4)
-        image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE)
-        image = self.aux.brightness_contrast_optimization(image, 1, 0.5)
-        image = self.aux.unsharp_mask(image, (3, 3), 0.5, 1.5, 0)
-        image = self.aux.dilate_image(image, 1)
+        image = aux.image_resize(image, height=image.shape[0]*4)
+        image = aux.open_close_filter(image, cv2.MORPH_CLOSE)
+        image = aux.brightness_contrast_optimization(image, 1, 0.5)
+        image = aux.unsharp_mask(image, (3, 3), 0.5, 1.5, 0)
+        image = aux.dilate_image(image, 1)
 
-        image = self.aux.binarize_image(image)
-        image = self.aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
+        image = aux.binarize_image(image)
+        image = aux.open_close_filter(image, cv2.MORPH_CLOSE, 1)
 
-        sorted_results = self.aux.east_process(image)
+        sorted_results = aux.east_process(image)
         sorted_chars = ' '.join(
             map(lambda position_and_word: position_and_word[1], sorted_results))
 
