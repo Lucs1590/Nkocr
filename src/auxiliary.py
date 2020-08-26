@@ -363,7 +363,7 @@ def sort_boxes(boxes):
     lines_values = sorted(list(set(map(lambda box: box[0][1], boxes))))
     for value in lines_values:
         words_of_line = sorted(
-            filter(lambda box: box[0][1] == value, boxes),
+            filter(lambda box, word=value: box[0][1] == word, boxes),
             key=lambda box: box[0][0]
         )
         sorted_text.append(words_of_line)
@@ -372,11 +372,12 @@ def sort_boxes(boxes):
         item for sublist in sorted_text for item in sublist]
     return flatten_sorted_text
 
-    def get_image_from_url(self, url):
-        try:
-            response = requests.get(url)
-        except Exception:
-            raise ConnectionError(
-                'you need to be connected to some internet network to download the EAST model.')
 
-        return response
+def get_image_from_url(url):
+    try:
+        response = requests.get(url)
+    except Exception:
+        raise ConnectionError(
+            'you need to be connected to some internet network to download the EAST model.')
+
+    return response
