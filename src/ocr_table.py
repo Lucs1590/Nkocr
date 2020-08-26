@@ -9,7 +9,7 @@ from io import BytesIO
 from src.auxiliary import Auxiliary
 
 
-class ocr_table(object):
+class OcrTable(object):
     def __init__(self,
                  image,
                  language: str = 'por',

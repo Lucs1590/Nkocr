@@ -46,13 +46,13 @@ $ pip install nkocr --user
 # How to use
 To use this package, after do installation, do:
 ```python
-from nkocr import ocr_table, ocr_product
+from nkocr import OcrTable, ocr_product
 ```
 
 # Example
 ```python
-from nkocr import ocr_table
+from nkocr import OcrTable
 
-text = ocr_table("paste_image_url_here")
+text = OcrTable("paste_image_url_here")
 print(text) # or print(text.text)
 ```
