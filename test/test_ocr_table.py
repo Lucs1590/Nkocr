@@ -1,8 +1,9 @@
 import unittest
+import ast
 from PIL import Image
 
-from src.ocr_table import OcrTable
 from pytest_socket import disable_socket, enable_socket
+from src.ocr_table import OcrTable
 
 
 class TestTable(unittest.TestCase):
@@ -34,7 +35,7 @@ class TestTable(unittest.TestCase):
         text_and_time = OcrTable('test/ocr.png', show_performace=True)
         has_time = text_and_time.execution_time and \
             text_and_time.show_performace and \
-            len(eval(repr(text_and_time))) > 1
+            len(ast.literal_eval(repr(text_and_time))) > 1
         self.assertTrue(has_time)
 
     def test_wrong_parameter_type(self):
