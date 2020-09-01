@@ -6,13 +6,13 @@ from pytest_socket import disable_socket, enable_socket
 from src.ocr_product import OcrProduct
 
 
-image_path = 'tests/ocr.png'
-
-
 class TestProduct(unittest.TestCase):
 
+    def setUp(self):
+        self.image_path = 'tests/ocr.png'
+
     def test_path_processing(self):
-        text = OcrProduct(image_path)
+        text = OcrProduct(self.image_path)
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
@@ -29,7 +29,7 @@ class TestProduct(unittest.TestCase):
             OcrProduct('https://project-elements-nk.s3.amazonaws.com/ocr.png')
 
     def test_image_processing(self):
-        image = Image.open(image_path)
+        image = Image.open(self.image_path)
         text = OcrProduct(image)
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
@@ -42,7 +42,7 @@ class TestProduct(unittest.TestCase):
         self.assertTrue(has_time)
 
     def test_wrong_parameter_type(self):
-        image = Image.open(image_path)
+        image = Image.open(self.image_path)
         with self.assertRaises(TypeError):
             OcrProduct(image, True)
 
