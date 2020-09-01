@@ -9,13 +9,16 @@ from sklearn.cluster import KMeans
 from pytest_socket import disable_socket, enable_socket
 import src.auxiliary as aux
 
+model_path = 'tests/model.pb'
+image_path = 'tests/ocr.png'
+
 
 def get_pil_image():
-    return Image.open('test/ocr.png')
+    return Image.open(image_path)
 
 
 def get_cv_image():
-    return cv2.imread('test/ocr.png')
+    return cv2.imread(image_path)
 
 
 class TestAuxiliary(unittest.TestCase):
@@ -26,7 +29,7 @@ class TestAuxiliary(unittest.TestCase):
         self.assertEqual(input_type, 3)
 
     def test_path_type(self):
-        path = 'test/ocr.png'
+        path = image_path
         input_type = aux.get_input_type(path)
         self.assertEqual(input_type, 2)
 
@@ -121,7 +124,7 @@ class TestAuxiliary(unittest.TestCase):
 
     def test_get_model(self):
         enable_socket()
-        output = 'test/model.pb'
+        output = model_path
         if os.path.isfile(output):
             os.remove(output)
         model = aux.get_model_from_s3(output)
@@ -129,7 +132,7 @@ class TestAuxiliary(unittest.TestCase):
 
     def test_get_model_error(self):
         disable_socket()
-        output = 'test/model.pb'
+        output = model_path
         with self.assertRaises(ConnectionError):
             aux.get_model_from_s3(output)
 
@@ -187,3 +190,7 @@ class TestAuxiliary(unittest.TestCase):
         ]
         new_boxes = aux.sort_boxes(boxes)
         self.assertEqual(expected, new_boxes)
+
+
+if __name__ == '__main__':
+    unittest.main()
