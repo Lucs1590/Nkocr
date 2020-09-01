@@ -35,7 +35,7 @@ class TestProduct(unittest.TestCase):
         self.assertTrue(type_output)
 
     def test_execution_time(self):
-        text_and_time = OcrProduct(image_path, show_performace=True)
+        text_and_time = OcrProduct(self.image_path, show_performace=True)
         has_time = text_and_time.execution_time and \
             text_and_time.show_performace and \
             len(ast.literal_eval(repr(text_and_time))) > 1
