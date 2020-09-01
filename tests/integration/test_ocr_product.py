@@ -9,7 +9,7 @@ from src.ocr_product import OcrProduct
 class TestProduct(unittest.TestCase):
 
     def setUp(self):
-        self.image_path = 'tests/ocr.png'
+        self.image_path = 'tests/fixtures/ocr.png'
 
     def test_path_processing(self):
         text = OcrProduct(self.image_path)

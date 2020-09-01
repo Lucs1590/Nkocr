@@ -13,8 +13,8 @@ import src.auxiliary as aux
 class TestAuxiliary(unittest.TestCase):
 
     def setUp(self):
-        self.model_path = 'tests/model.pb'
-        self.image_path = 'tests/ocr.png'
+        self.model_path = 'tests/fixtures/model.pb'
+        self.image_path = 'tests/fixtures/ocr.png'
         self.cv_image = cv2.imread(self.image_path)
         self.pil_image = Image.open(self.image_path)
 
