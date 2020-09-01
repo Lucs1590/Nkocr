@@ -45,3 +45,7 @@ class TestTable(unittest.TestCase):
         image = Image.open(image_path)
         with self.assertRaises(TypeError):
             OcrTable(image, True)
+
+
+if __name__ == '__main__':
+    unittest.main()

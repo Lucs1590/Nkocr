@@ -45,3 +45,7 @@ class TestProduct(unittest.TestCase):
         image = Image.open(image_path)
         with self.assertRaises(TypeError):
             OcrProduct(image, True)
+
+
+if __name__ == '__main__':
+    unittest.main()
