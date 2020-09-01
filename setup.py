@@ -47,7 +47,7 @@ setup(
         'numpy==1.19.1',
         'opencv-contrib-python>=4.3.*',
         'scikit-learn==0.23.2',
-        'gdown==3.12.2',
+        'gdown==3.12.0',
         'imutils==0.5.3'
     ],
     extras_require={
