@@ -10,7 +10,7 @@ from pytest_socket import disable_socket, enable_socket
 import src.auxiliary as aux
 
 
-class TestAuxiliary(unittest.TestCase):
+class TestAuxiliaryUnit(unittest.TestCase):
 
     def setUp(self):
         self.model_path = 'tests/fixtures/model.pb'
