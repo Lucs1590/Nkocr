@@ -12,6 +12,7 @@ class TestTable(unittest.TestCase):
         self.image_path = 'tests/fixtures/ocr.png'
 
     def test_path_processing(self):
+        enable_socket()
         text = OcrTable(self.image_path)
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
@@ -29,12 +30,14 @@ class TestTable(unittest.TestCase):
             OcrTable('https://project-elements-nk.s3.amazonaws.com/ocr.png')
 
     def test_image_processing(self):
+        enable_socket()
         image = Image.open(self.image_path)
         text = OcrTable(image)
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
     def test_execution_time(self):
+        enable_socket()
         text_and_time = OcrTable(self.image_path, show_performace=True)
         has_time = text_and_time.execution_time and \
             text_and_time.show_performace and \
