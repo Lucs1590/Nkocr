@@ -6,7 +6,7 @@ from pytest_socket import disable_socket, enable_socket
 from src.ocr_table import OcrTable
 
 
-class TestTable(unittest.TestCase):
+class TestTableIntegration(unittest.TestCase):
 
     def setUp(self):
         self.image_path = 'tests/fixtures/ocr.png'
