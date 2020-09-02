@@ -1,12 +1,10 @@
 import unittest
-import os
 import cv2
 
 import numpy as np
 
 from PIL import Image
 from sklearn.cluster import KMeans
-from pytest_socket import disable_socket, enable_socket
 import src.auxiliary as aux
 
 
@@ -26,11 +24,6 @@ class TestAuxiliaryUnit(unittest.TestCase):
     def test_path_type(self):
         input_type = aux.get_input_type(self.image_path)
         self.assertEqual(input_type, 2)
-
-    def test_url_type(self):
-        url = 'https://img.icons8.com/all/500/general-ocr.png'
-        input_type = aux.get_input_type(url)
-        self.assertEqual(input_type, 1)
 
     def test_wrong_type(self):
         string = 'a'
@@ -111,23 +104,6 @@ class TestAuxiliaryUnit(unittest.TestCase):
         image_returned_shape = image_returned.shape
         self.assertEqual(image_shape, image_returned_shape)
 
-    def test_load_model(self):
-        enable_socket()
-        model = aux.load_east_model()
-        self.assertTrue(isinstance(model, str))
-
-    def test_get_model(self):
-        enable_socket()
-        if os.path.isfile(self.model_path):
-            os.remove(self.model_path)
-        model = aux.get_model_from_s3(self.model_path)
-        self.assertTrue(isinstance(model, str))
-
-    def test_get_model_error(self):
-        disable_socket()
-        with self.assertRaises(ConnectionError):
-            aux.get_model_from_s3(self.model_path)
-
     def test_get_size(self):
         image = self.cv_image
         sizes = aux.get_size(image)
@@ -140,27 +116,6 @@ class TestAuxiliaryUnit(unittest.TestCase):
         are_numbers = isinstance(
             ratios[0], float) and isinstance(ratios[1], float)
         self.assertTrue(are_numbers)
-
-    def test_east_process(self):
-        image = self.cv_image
-        result = aux.east_process(image)
-        self.assertIsNotNone(result)
-
-    def test_run_east(self):
-        model = cv2.dnn.readNet(aux.load_east_model())
-        image = self.cv_image
-        size = (640, 640)
-        east = aux.run_east(model, image, size[0], size[1])
-        self.assertEqual(len(east), 2)
-
-    def test_decode_predictions(self):
-        model = cv2.dnn.readNet(aux.load_east_model())
-        image = self.cv_image
-        size = (640, 640)
-        east = aux.run_east(model, image, size[0], size[1])
-        min_confidence = 0.1
-        decode = aux.decode_predictions(east[0], east[1], min_confidence)
-        self.assertEqual(len(decode), 2)
 
     def test_apply_boxes(self):
         boxes = np.array(
