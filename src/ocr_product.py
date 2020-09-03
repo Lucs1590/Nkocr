@@ -4,7 +4,7 @@ import pytesseract
 
 from PIL import Image
 
-import auxiliary as aux
+import src.auxiliary as aux
 
 
 class OcrProduct:
