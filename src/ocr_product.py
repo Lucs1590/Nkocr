@@ -1,6 +1,8 @@
 from time import time
 from io import BytesIO
 import pytesseract
+import re
+from symspellpy import SymSpell, Verbosity
 
 from PIL import Image
 
@@ -11,12 +13,19 @@ class OcrProduct:
     def __init__(self,
                  image,
                  language: str = 'por',
+                 spell_corrector=False,
                  show_performace: bool = False):
-        self.define_global_vars(language, show_performace)
+        self.define_global_vars(language, show_performace, spell_corrector)
         started_time = time()
 
         input_type = aux.get_input_type(image)
         self.text = self.process_image(image, input_type)
+
+        if self.spell_corrector:
+            sym_spell = self.load_dict_to_memory()
+            self.text = [self.get_word_suggestion(
+                sym_spell, input_term) for input_term in self.text.split(' ')]
+            self.text = ' '.join(self.text)
 
         self.execution_time = time() - started_time
 
@@ -25,13 +34,14 @@ class OcrProduct:
             if not self.show_performace \
             else repr([self.text, self.show_performace])
 
-    def define_global_vars(self, language, show_performace):
-        if isinstance(language, str) and isinstance(show_performace, bool):
+    def define_global_vars(self, language, show_performace, spell_corrector):
+        if isinstance(language, str) and isinstance(show_performace, bool) and isinstance(spell_corrector, bool):
             self.lang = language
             self.show_performace = show_performace
+            self.spell_corrector = spell_corrector
         else:
             raise TypeError(
-                'language variable must need be a string and show_perf. bool!')
+                'language variable must be a string, show_perf. and spell_corrector bool!')
 
     def process_image(self, image, _type):
         if _type == 1:
@@ -58,3 +68,20 @@ class OcrProduct:
     def run_img_ocr(self, image):
         phrase = pytesseract.image_to_string(image, lang=self.lang)
         return phrase
+
+    def load_dict_to_memory(self):
+        sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+        sym_spell.load_pickle('./src/dictionary/dictionary.pkl')
+        return sym_spell
+
+    def get_word_suggestion(self, symspell, input_term):
+        get_digits = re.findall('\d+', input_term)
+
+        if len(get_digits) == 0:
+            suggestion = symspell.lookup(
+                input_term, Verbosity.TOP, max_edit_distance=2)
+
+            if len(suggestion) > 0:
+                return suggestion[0].term
+
+        return input_term
