@@ -34,9 +34,9 @@ class TestAuxiliaryIntegration(unittest.TestCase):
         self.assertTrue(isinstance(model, str))
 
     def test_get_model_error(self):
-            disable_socket()
-            with self.assertRaises(ConnectionError):
-                aux.get_model_from_s3(self.model_path)
+        disable_socket()
+        with self.assertRaises(ConnectionError):
+            aux.get_model_from_s3(self.model_path)
 
     def test_east_process(self):
         image = self.cv_image

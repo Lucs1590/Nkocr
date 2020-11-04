@@ -1,4 +1,6 @@
-# Nkocr
+![Nkocr_logo](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/logo.jpg)
+
+--------------------------------------
 
 [![CodeFactor](https://www.codefactor.io/repository/github/lucs1590/nkocr/badge)](https://www.codefactor.io/repository/github/lucs1590/nkocr)
 ![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
