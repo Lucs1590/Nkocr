@@ -13,7 +13,7 @@ class OcrTable:
     def __init__(self,
                  image,
                  language: str = 'por',
-                 spell_corrector = False,
+                 spell_corrector: bool = False,
                  show_performace: bool = False):
         self.define_global_vars(language, show_performace, spell_corrector)
         started_time = time()
@@ -36,7 +36,8 @@ class OcrTable:
 
     def define_global_vars(self, language, show_performace, spell_corrector):
         if isinstance(language, str) and \
-                isinstance(show_performace, bool) and isinstance(spell_corrector, bool):
+                isinstance(show_performace, bool) and \
+                isinstance(spell_corrector, bool):
             self.lang = language
             self.show_performace = show_performace
             self.spell_corrector = spell_corrector
