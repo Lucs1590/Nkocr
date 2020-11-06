@@ -45,6 +45,9 @@ You can install this package with:
 $ pip install nkocr --user
 ```
 
+# Operating Pipeline
+![Pipeline_Nkocr](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/pipeline.png)
+
 # How to use
 To use this package, after do installation, do:
 ```python
