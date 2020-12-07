@@ -50,7 +50,7 @@ setup(
         'tesseract==0.1.3',
         'pytesseract==0.3.6',
         'requests==2.25.0',
-        'wheel==0.35.1',
+        'wheel==0.36.1',
         'pillow==8.0.1',
         'numpy==1.19.4',
         'opencv-contrib-python>=4.*',
