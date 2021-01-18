@@ -5,7 +5,7 @@ wheel==0.36.2
 pillow==8.1.0
 numpy==1.19.5
 opencv-contrib-python>=4.*
-scikit-learn==0.23.2
+scikit-learn==0.24.0
 gdown==3.12.2
 pytest-socket==0.3.5
 imutils==0.5.4
