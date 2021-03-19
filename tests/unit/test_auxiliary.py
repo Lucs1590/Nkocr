@@ -138,6 +138,9 @@ class TestAuxiliaryUnit(unittest.TestCase):
         new_boxes = aux.sort_boxes(boxes)
         self.assertEqual(expected, new_boxes)
 
+    def get_word_suggestion(self):
+        ...
+
 
 if __name__ == '__main__':
     unittest.main()

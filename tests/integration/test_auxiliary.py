@@ -59,6 +59,9 @@ class TestAuxiliaryIntegration(unittest.TestCase):
         decode = aux.decode_predictions(east[0], east[1], min_confidence)
         self.assertEqual(len(decode), 2)
 
+    def test_load_dict_to_memory(self):
+        ...
+
 
 if __name__ == '__main__':
     unittest.main()
