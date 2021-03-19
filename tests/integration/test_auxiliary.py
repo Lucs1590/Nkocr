@@ -60,7 +60,8 @@ class TestAuxiliaryIntegration(unittest.TestCase):
         self.assertEqual(len(decode), 2)
 
     def test_load_dict_to_memory(self):
-        ...
+        model = aux.load_dict_to_memory()
+        self.assertIsNotNone(model)
 
 
 if __name__ == '__main__':
