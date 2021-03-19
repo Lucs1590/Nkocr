@@ -56,7 +56,8 @@ setup(
         'opencv-contrib-python>=4.*',
         'scikit-learn==0.24.1',
         'gdown==3.12.2',
-        'imutils==0.5.4'
+        'imutils==0.5.4',
+        'symspellpy==6.5.2'
     ],
     extras_require={
         'dev': [

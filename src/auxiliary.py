@@ -6,6 +6,7 @@ from os import path
 import gdown
 import cv2
 import requests
+from symspellpy import SymSpell, Verbosity
 
 import numpy as np
 import pytesseract as ocr
@@ -378,3 +379,20 @@ def get_image_from_url(url):
             'you need to be connected to some internet network to download the EAST model.')
 
     return response
+
+def load_dict_to_memory():
+    sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+    sym_spell.load_pickle('./src/dictionary/dictionary.pkl')
+    return sym_spell
+
+def get_word_suggestion(symspell, input_term):
+    get_digits = re.findall(r'\d+', input_term)
+
+    if len(get_digits) == 0:
+        suggestion = symspell.lookup(
+            input_term, Verbosity.TOP, max_edit_distance=2)
+
+        if len(suggestion) > 0:
+            return suggestion[0].term
+
+    return input_term

@@ -13,12 +13,19 @@ class OcrTable:
     def __init__(self,
                  image,
                  language: str = 'por',
+                 spell_corrector: bool = False,
                  show_performace: bool = False):
-        self.define_global_vars(language, show_performace)
+        self.define_global_vars(language, show_performace, spell_corrector)
         started_time = time()
 
         input_type = aux.get_input_type(image)
         self.text = process_image(image, input_type)
+
+        if self.spell_corrector:
+            sym_spell = aux.load_dict_to_memory()
+            self.text = [aux.get_word_suggestion(
+                sym_spell, input_term) for input_term in self.text.split(' ')]
+            self.text = ' '.join(self.text)
 
         self.execution_time = time() - started_time
 
@@ -27,14 +34,16 @@ class OcrTable:
             if not self.show_performace \
             else repr([self.text, self.show_performace])
 
-    def define_global_vars(self, language, show_performace):
+    def define_global_vars(self, language, show_performace, spell_corrector):
         if isinstance(language, str) and \
-                isinstance(show_performace, bool):
+                isinstance(show_performace, bool) and \
+                isinstance(spell_corrector, bool):
             self.lang = language
             self.show_performace = show_performace
+            self.spell_corrector = spell_corrector
         else:
             raise TypeError(
-                'language variable must need be a string and show_perf. bool!')
+                'language variable must be a string, show_perf. and spell_corrector bool!')
 
 
 def process_image(image, _type):
