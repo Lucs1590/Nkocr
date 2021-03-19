@@ -17,7 +17,7 @@ class TestAuxiliaryIntegration(unittest.TestCase):
 
     def test_url_type(self):
         enable_socket()
-        url = 'https://img.icons8.com/all/500/general-ocr.png'
+        url = 'https://project-elements-nk.s3.amazonaws.com/ocr.png'
         input_type = aux.get_input_type(url)
         self.assertEqual(input_type, 1)
 
