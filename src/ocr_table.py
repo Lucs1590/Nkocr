@@ -6,7 +6,7 @@ import cv2
 
 from PIL import Image
 
-import src.auxiliary as aux
+import auxiliary as aux
 
 
 class OcrTable:
