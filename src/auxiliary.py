@@ -386,7 +386,7 @@ def load_dict_to_memory():
     return sym_spell
 
 def get_word_suggestion(symspell, input_term):
-    get_digits = re.findall('\d+', input_term)
+    get_digits = re.findall(r'\d+', input_term)
 
     if len(get_digits) == 0:
         suggestion = symspell.lookup(
