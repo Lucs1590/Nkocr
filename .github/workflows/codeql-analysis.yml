@@ -52,12 +52,3 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-      
-      
-    - name: Codecov Node
-      uses: codecov/codecov-action@v1
-      with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          flags: unittests
-          fail_ci_if_error: true
-          verbose: true
