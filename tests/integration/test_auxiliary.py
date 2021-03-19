@@ -17,7 +17,7 @@ class TestAuxiliaryIntegration(unittest.TestCase):
 
     def test_url_type(self):
         enable_socket()
-        url = 'https://img.icons8.com/all/500/general-ocr.png'
+        url = 'https://project-elements-nk.s3.amazonaws.com/ocr.png'
         input_type = aux.get_input_type(url)
         self.assertEqual(input_type, 1)
 
@@ -58,6 +58,10 @@ class TestAuxiliaryIntegration(unittest.TestCase):
         min_confidence = 0.1
         decode = aux.decode_predictions(east[0], east[1], min_confidence)
         self.assertEqual(len(decode), 2)
+
+    def test_load_dict_to_memory(self):
+        model = aux.load_dict_to_memory()
+        self.assertIsNotNone(model)
 
 
 if __name__ == '__main__':

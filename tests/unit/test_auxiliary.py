@@ -138,6 +138,14 @@ class TestAuxiliaryUnit(unittest.TestCase):
         new_boxes = aux.sort_boxes(boxes)
         self.assertEqual(expected, new_boxes)
 
+    def test_get_word_suggestion(self):
+        model = aux.load_dict_to_memory()
+        text = 'testando meur 20 arquiva 10'
+        text = [aux.get_word_suggestion(model, input_term)
+                for input_term in text.split(' ')]
+        text = ' '.join(text)
+        self.assertGreaterEqual(len(text), 20)
+
 
 if __name__ == '__main__':
     unittest.main()

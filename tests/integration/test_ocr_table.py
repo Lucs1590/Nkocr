@@ -44,6 +44,13 @@ class TestTableIntegration(unittest.TestCase):
             len(ast.literal_eval(repr(text_and_time))) > 1
         self.assertTrue(has_time)
 
+    def test_spell_corrector_flag(self):
+        enable_socket()
+        result = OcrTable(self.image_path, spell_corrector=True)
+        has_spell_corrector = result.spell_corrector and \
+            len(ast.literal_eval(repr(result))) > 1
+        self.assertTrue(has_spell_corrector)
+
     def test_wrong_parameter_type(self):
         image = Image.open(self.image_path)
         with self.assertRaises(TypeError):

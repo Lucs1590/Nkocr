@@ -3,6 +3,7 @@
 --------------------------------------
 
 [![CodeFactor](https://www.codefactor.io/repository/github/lucs1590/nkocr/badge)](https://www.codefactor.io/repository/github/lucs1590/nkocr)
+[![codecov](https://codecov.io/gh/Lucs1590/Nkocr/branch/master/graph/badge.svg?token=DRGVRJMNBP)](https://codecov.io/gh/Lucs1590/Nkocr)
 ![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
 ![Upload Python Package](https://github.com/Lucs1590/Nkocr/workflows/Upload%20Python%20Package/badge.svg?branch=v0.2.2)
 ![OSSAR](https://github.com/Lucs1590/Nkocr/workflows/OSSAR/badge.svg)

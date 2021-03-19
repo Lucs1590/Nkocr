@@ -13,7 +13,7 @@ long_description = read('README.md')
 
 setup(
     name='nkocr',
-    version='1.8.1',
+    version='2.0.0',
     description='This is a module to make specifics OCRs \
          at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',
@@ -56,7 +56,8 @@ setup(
         'opencv-contrib-python>=4.*',
         'scikit-learn==0.24.1',
         'gdown==3.12.2',
-        'imutils==0.5.4'
+        'imutils==0.5.4',
+        'symspellpy==6.5.2'
     ],
     extras_require={
         'dev': [
