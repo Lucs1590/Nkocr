@@ -8,7 +8,7 @@
 ![OSSAR](https://github.com/Lucs1590/Nkocr/workflows/OSSAR/badge.svg)
 ![CodeQL](https://github.com/Lucs1590/Nkocr/workflows/CodeQL/badge.svg)
 
-This is a module to make specifics OCRs at food products and nutricional tables.
+This is a module to make specifics OCRs at food products and nutritional tables.
 
 
 As a prerequisite of this project, we have the tesseract library which can be found in more detail at
@@ -44,6 +44,9 @@ You can install this package with:
 ```bash
 $ pip install nkocr --user
 ```
+
+# Operating Pipeline
+![Pipeline_Nkocr](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/pipeline.png)
 
 # How to use
 To use this package, after do installation, do:
