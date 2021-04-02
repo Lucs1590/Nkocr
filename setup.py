@@ -52,12 +52,12 @@ setup(
         'requests==2.25.1',
         'wheel==0.36.2',
         'pillow==8.1.2',
-        'numpy==1.20.0',
+        'numpy==1.20.2',
         'opencv-contrib-python>=4.*',
         'scikit-learn==0.24.1',
         'gdown==3.12.2',
         'imutils==0.5.4',
-        'symspellpy==6.5.2'
+        'symspellpy==6.7.0'
     ],
     extras_require={
         'dev': [
