@@ -19,8 +19,8 @@ setup(
     url='https://github.com/Lucs1590/Nkocr',
     download_url='https://github.com/Lucs1590/Nkocr',
     license='Apache License 2.0',
-    author='NK Sistemas de Informacao em Saude',
-    author_email='ti@nkodontologia.com.br',
+    author='Lucas de Brito Silva',
+    author_email='lucasbsilva29@gmail.com',
 
     py_modules=['nkocr', 'auxiliary', 'ocr_product', 'ocr_table'],
     package_dir={'': 'src'},
