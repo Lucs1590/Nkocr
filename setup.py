@@ -62,7 +62,7 @@ setup(
     extras_require={
         'dev': [
             'pytest>=3.7',
-            'pytest-socket==0.3.5'
+            'pytest-socket==0.4.0'
         ]
     }
 )
