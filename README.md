@@ -62,3 +62,9 @@ from nkocr import OcrTable
 text = OcrTable("paste_image_url_here")
 print(text) # or print(text.text)
 ```
+
+# Supporting
+
+Many hours of hard work have gone into this project. Your support will be very appreciated!
+
+<a href="https://www.buymeacoffee.com/Lucs1590" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
