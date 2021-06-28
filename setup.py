@@ -52,7 +52,7 @@ setup(
         'requests==2.25.1',
         'wheel==0.36.2',
         'pillow==8.2.0',
-        'numpy==1.20.3',
+        'numpy==1.21.0',
         'opencv-contrib-python>=4.*',
         'scikit-learn==0.24.2',
         'gdown==3.13.0',
