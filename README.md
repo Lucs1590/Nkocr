@@ -16,8 +16,8 @@ As a prerequisite of this project, we have the tesseract library which can be fo
 
 https://github.com/tesseract-ocr/tesseract
 
-# Installation of prerequisites
-## Tesseract OCR
+# Prerequisite Installation
+### Tesseract OCR
 The installation of tesseract on the **Linux** system can be done in a few commands:
 
 ```bash
@@ -29,27 +29,22 @@ And the same goes for **macOS**. There is a variation between MacPorts and Homeb
 $ brew install tesseract
 ```
 After performing the tesseract installation, it is possible to perform OCR in just one command, thus already extracting some words from the image.
-> The default language is English, depending on the text, it will not be possible to capture the word/phrase.
-If you want to work with another language, you need to make some additional installations. (https://github.com/tesseract-ocr/tesseract/wiki#other-languages)
----
-## OpenCV
+
+### OpenCV
 The installation of OpenCV on the **Linux** system can be done in a command:
 
 ```bash
 $ sudo apt install python3-opencv
 ```
  > To more informations, access: https://docs.opencv.org/master/da/df6/tutorial_py_table_of_contents_setup.html
----
-# Installation
+
+# Nkocr Installation
 You can install this package with:
 ```bash
 $ pip install nkocr --user
 ```
 
-# Operating Pipeline
-![Pipeline_Nkocr](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/pipeline.png)
-
-# How to use
+# How to use?
 To use this package, after do installation, do:
 ```python
 from nkocr import OcrTable, OcrProduct
@@ -62,6 +57,23 @@ from nkocr import OcrTable
 text = OcrTable("paste_image_url_here")
 print(text) # or print(text.text)
 ```
+
+# Operating Pipeline
+![Pipeline_Nkocr](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/pipeline.png)
+
+# Changing Language
+The default language is English, depending on the text, it will not be possible to capture the word/phrase.
+If you want to work with another language, you will need to make some changes inherent in the language that the algorithm runs.
+The first thing is to download the desired language with tesseract support, running:
+```
+sudo apt install tesseract-ocr-<lang>
+```
+> You can see supported languages from the following link: https://github.com/tesseract-ocr/tessdoc/blob/master/Data-Files-in-different-versions.md
+Then, you need to change the language in the following code snippets, putting what is supported by tesseract as well.
+
+https://github.com/Lucs1590/Nkocr/blob/cdf0024850617bf24261ad1b028b5b924ae96720/src/ocr_product.py#L13
+https://github.com/Lucs1590/Nkocr/blob/cdf0024850617bf24261ad1b028b5b924ae96720/src/ocr_table.py#L15
+https://github.com/Lucs1590/Nkocr/blob/a6c2cd045edfb12f664a8832b1349b1e1dc4b00f/src/auxiliary.py#L349
 
 # Supporting
 
