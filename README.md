@@ -11,13 +11,10 @@
 
 This is a module to make specifics OCRs at food products and nutritional tables.
 
-
-As a prerequisite of this project, we have the tesseract library which can be found in more detail at
-
-https://github.com/tesseract-ocr/tesseract
-
 # Prerequisite Installation
 ### Tesseract OCR
+As a prerequisite of this project, we have the tesseract library which can be found in more detail at: https://github.com/tesseract-ocr/tesseract.
+
 The installation of tesseract on the **Linux** system can be done in a few commands:
 
 ```bash
