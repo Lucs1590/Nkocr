@@ -11,7 +11,7 @@
 
 This is a module to make specifics OCRs at food products and nutritional tables.
 
-# Table of Contents
+# Contents
 - [Prerequisites](#prerequisites)
     - [Tesseract OCR](#tesseract)
     - [OpenCV](#opencv)
