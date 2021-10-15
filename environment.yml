@@ -48,4 +48,3 @@ dependencies:
     - toml==0.10.2
     - tqdm==4.62.3
     - urllib3==1.26.7
-prefix: /Users/brito/opt/anaconda3/envs/nkocr
