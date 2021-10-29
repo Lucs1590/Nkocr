@@ -17,6 +17,15 @@ from imutils.object_detection import non_max_suppression
 
 
 def load_east_model():
+    """ # Load East model
+    This function load the frozen east model which is especialized on text detection.
+
+    Raises:
+        OSError: wrong directory path.
+
+    Returns:
+        str: model path.
+    """
     _path = list(
         filter(lambda _path: 'site-packages' in _path, sys.path))[-1]
     if _path:
@@ -35,6 +44,18 @@ def load_east_model():
 
 
 def get_model_from_s3(output):
+    """# Get model from S3
+    This function is used to download the frozen model from S3 when it isn't on the environment.
+
+    Args:
+        output (str): path to model location.
+
+    Raises:
+        ConnectionError: internet error.
+
+    Returns:
+        str: model path.
+    """
     url = 'https://project-elements-nk.s3.amazonaws.com/' +\
         'frozen_east_text_detection.pb'
     try:
@@ -46,6 +67,17 @@ def get_model_from_s3(output):
 
 
 def get_input_type(_input):
+    """# Get input type
+
+    Args:
+        _input (Any): input image.
+
+    Raises:
+        TypeError: input out of pattern.
+
+    Returns:
+        int: input type describled by a number.
+    """
     if is_url(_input):
         input_type = 1
     elif is_path(_input):
@@ -59,6 +91,15 @@ def get_input_type(_input):
 
 
 def is_url(_input):
+    """# Is url?
+    Try to understand if the input type is an url.
+
+    Args:
+        _input (Any): image input.
+
+    Returns:
+        bool: input is an url or not.
+    """
     if isinstance(_input, str):
         regex = re.compile(
             r'^(?:http|ftp)s?://'  # http:// or https://
@@ -76,6 +117,15 @@ def is_url(_input):
 
 
 def is_path(_input):
+    """# Is path?
+    Try to understand if the input type is a path.
+
+    Args:
+        _input (Any): image input.
+
+    Returns:
+        boolean: input is a path or not.
+    """
     if isinstance(_input, str):
         file_path = path.realpath(_input)
         result = path.isfile(file_path)
@@ -86,6 +136,15 @@ def is_path(_input):
 
 
 def is_image(_input):
+    """# Is image?
+    Try to understand if the input type is an image.
+
+    Args:
+        _input (Any): image input.
+
+    Returns:
+        boolean: input is a image or not.
+    """
     numpy_type = str(type(_input)) == \
         '<class '"'"'numpy.ndarray'"'"'>'
     plt_bmp_type = str(
@@ -380,10 +439,12 @@ def get_image_from_url(url):
 
     return response
 
+
 def load_dict_to_memory():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
     sym_spell.load_pickle('./src/dictionary/dictionary.pkl')
     return sym_spell
+
 
 def get_word_suggestion(symspell, input_term):
     get_digits = re.findall(r'\d+', input_term)
