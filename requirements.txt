@@ -9,4 +9,4 @@ scikit-learn==1.0.1
 gdown==4.2.0
 pytest-socket==0.4.1
 imutils==0.5.4
-symspellpy==6.7.0
+symspellpy==6.7.3
