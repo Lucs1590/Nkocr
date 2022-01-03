@@ -51,7 +51,7 @@ setup(
         'pytesseract==0.3.8',
         'requests==2.26.0',
         'wheel==0.37.1',
-        'pillow==8.4.0',
+        'pillow==9.0.0',
         'numpy==1.22.0',
         'opencv-contrib-python>=4.*',
         'scikit-learn==1.0.2',
