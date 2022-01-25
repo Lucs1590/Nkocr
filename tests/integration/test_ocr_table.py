@@ -20,14 +20,19 @@ class TestTableIntegration(unittest.TestCase):
     def test_url_processing(self):
         enable_socket()
         text = OcrTable(
-            'https://project-elements-nk.s3.amazonaws.com/ocr.png')
+            'https://drive.google.com/uc?export=download&id=' +
+            '1lr3gsaRC5pMGsyevuW36ZI9b4ZjrykPS'
+        )
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
     def test_url_processing_error(self):
         disable_socket()
         with self.assertRaises(ConnectionError):
-            OcrTable('https://project-elements-nk.s3.amazonaws.com/ocr.png')
+            OcrTable(
+                'https://drive.google.com/uc?export=download&id=' +
+                '1lr3gsaRC5pMGsyevuW36ZI9b4ZjrykPS'
+            )
 
     def test_image_processing(self):
         enable_socket()

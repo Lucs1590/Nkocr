@@ -35,8 +35,8 @@ def load_east_model():
 
 
 def get_model_from_s3(output):
-    url = 'https://project-elements-nk.s3.amazonaws.com/' +\
-        'frozen_east_text_detection.pb'
+    url = 'https://drive.google.com/uc?export=download&id' + \
+        '=1qGe5Zq8VzGxU90Kpt3fUb4noBBywUGuw'
     try:
         gdown.download(url, output, quiet=False)
         return output
@@ -380,10 +380,12 @@ def get_image_from_url(url):
 
     return response
 
+
 def load_dict_to_memory():
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
     sym_spell.load_pickle('./src/dictionary/dictionary.pkl')
     return sym_spell
+
 
 def get_word_suggestion(symspell, input_term):
     get_digits = re.findall(r'\d+', input_term)
