@@ -1,4 +1,5 @@
 ![Nkocr_logo](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/logo.jpg)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=try%20to%20apply%20OCR%20techniques%20on%20a%20nutritional%20table%20with%20Nkocr&url=https://github.com/Lucs1590/Nkocr&hashtags=ocr,github,opensource,developer,dev)
 
 --------------------------------------
 
