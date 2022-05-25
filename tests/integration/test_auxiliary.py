@@ -18,7 +18,7 @@ class TestAuxiliaryIntegration(unittest.TestCase):
     def test_url_type(self):
         enable_socket()
         url = 'https://drive.google.com/uc?export=download&id=' + \
-            '1lr3gsaRC5pMGsyevuW36ZI9b4ZjrykPS'
+            '1awJ8Vnwc7TKXQ6gMV1lyaL2qRKHbqnaI'
         input_type = aux.get_input_type(url)
         self.assertEqual(input_type, 1)
 
