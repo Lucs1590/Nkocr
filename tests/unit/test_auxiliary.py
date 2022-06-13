@@ -42,7 +42,7 @@ class TestAuxiliaryUnit(unittest.TestCase):
 
     def test_run_k_means(self):
         image = self.cv_image
-        colors = aux.run_kmeans(image, 1)
+        colors = aux.run_kmeans(image, 2)
         self.assertEqual(len(colors), 1)
 
     def test_centroid_histogram(self):

@@ -20,7 +20,7 @@ class TestProductIntegration(unittest.TestCase):
         enable_socket()
         text = OcrProduct(
             'https://drive.google.com/uc?export=download&id=' +
-            '1lr3gsaRC5pMGsyevuW36ZI9b4ZjrykPS'
+            '18u9O-_gO5f9A_afP2VP95FqfONX-alwu'
         )
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
@@ -30,7 +30,7 @@ class TestProductIntegration(unittest.TestCase):
         with self.assertRaises(ConnectionError):
             OcrProduct(
                 'https://drive.google.com/uc?export=download&id=' +
-                '1lr3gsaRC5pMGsyevuW36ZI9b4ZjrykPS'
+                '18u9O-_gO5f9A_afP2VP95FqfONX-alwu'
             )
 
     def test_image_processing(self):

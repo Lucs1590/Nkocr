@@ -36,7 +36,7 @@ def load_east_model():
 
 def get_model_from_s3(output):
     url = 'https://drive.google.com/uc?export=download&id' + \
-        '=1qGe5Zq8VzGxU90Kpt3fUb4noBBywUGuw'
+        '=1awJ8Vnwc7TKXQ6gMV1lyaL2qRKHbqnaI'
     try:
         gdown.download(url, output, quiet=False)
         return output
