@@ -49,7 +49,7 @@ setup(
     install_requires=[
         'tesseract==0.1.3',
         'pytesseract==0.3.9',
-        'requests==2.28.0',
+        'requests==2.28.1',
         'wheel==0.37.1',
         'pillow==9.2.0',
         'numpy==1.23.0',
