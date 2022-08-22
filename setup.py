@@ -27,8 +27,14 @@ setup(
 
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords=['ocr', 'tesseract-ocr', 'nk',
-              'python3', 'python-3', 'food-products'],
+    keywords=[
+        'ocr',
+        'tesseract-ocr',
+        'nk',
+        'python3',
+        'python-3',
+        'food-products'
+    ],
     classifiers=[
         'Natural Language :: English',
         'Programming Language :: Python',
@@ -62,7 +68,9 @@ setup(
     extras_require={
         'dev': [
             'pytest>=3.7',
-            'pytest-socket==0.5.1'
+            'pytest-socket==0.5.1',
+            'pre-commit==2.20.0',
+            'commitizen==2.31.0'
         ]
     }
 )
