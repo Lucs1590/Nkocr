@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 from setuptools import setup
 
@@ -16,7 +17,10 @@ long_description = read('README.md')
 
 setup(
     name='nkocr',
-    version='2.0.2',
+    version=re.findall(
+        re.compile(r'[0-9]+\.[0-9]+\.[0-9]+'),
+        read('__version__.py')
+    )[0],
     description='This is a module to make specifics OCRs \
          at food products and nutricional tables.',
     url='https://github.com/Lucs1590/Nkocr',

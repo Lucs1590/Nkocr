@@ -1,5 +1,9 @@
 [tool]
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "2.1.0"
+version = "2.0.2"
 tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version",
+    "__version__.py"
+]
