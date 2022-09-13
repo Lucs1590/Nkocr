@@ -346,7 +346,7 @@ def apply_boxes(
         end_y = min(height, end_y + (distance_y * 2))
         roi = image[start_y:end_y, start_x:end_x]
 
-        config = ('-l por --oem 1 --psm 7')
+        config = ('-l eng --oem 1 --psm 7')
         text = ocr.image_to_string(roi, config=config)
 
         results.append(((start_x, start_y, end_x, end_y), text))
