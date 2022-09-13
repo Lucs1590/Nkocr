@@ -40,9 +40,9 @@ def get_model_from_s3(output):
     try:
         gdown.download(url, output, quiet=False)
         return output
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.') from error
 
 
 def get_input_type(_input):
@@ -374,9 +374,9 @@ def sort_boxes(boxes):
 def get_image_from_url(url):
     try:
         response = requests.get(url)
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.') from error
 
     return response
 
