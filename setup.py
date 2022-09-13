@@ -4,8 +4,11 @@ from setuptools import setup
 
 
 def read(file_name):
-    with open(os.path.join(Path(os.path.dirname(__file__)), file_name))\
-            as _file:
+    with open(
+        os.path.join(
+            Path(os.path.dirname(__file__)),
+            file_name)
+    ) as _file:
         return _file.read()
 
 

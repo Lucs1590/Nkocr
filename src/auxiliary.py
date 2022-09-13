@@ -40,9 +40,10 @@ def get_model_from_s3(output):
     try:
         gdown.download(url, output, quiet=False)
         return output
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
 
 def get_input_type(_input):
@@ -346,7 +347,7 @@ def apply_boxes(
         end_y = min(height, end_y + (distance_y * 2))
         roi = image[start_y:end_y, start_x:end_x]
 
-        config = ('-l por --oem 1 --psm 7')
+        config = ('-l eng --oem 1 --psm 7')
         text = ocr.image_to_string(roi, config=config)
 
         results.append(((start_x, start_y, end_x, end_y), text))
@@ -374,9 +375,10 @@ def sort_boxes(boxes):
 def get_image_from_url(url):
     try:
         response = requests.get(url)
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
     return response
 

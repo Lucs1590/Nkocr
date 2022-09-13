@@ -1,5 +1,15 @@
 ## Unreleased
 
+### Refactor
+
+- changing default language
+
+### Fix
+
+- fix image error
+
+## v2.1.0 (2022-05-18)
+
 ## list (2022-05-18)
 
 ### Feat
