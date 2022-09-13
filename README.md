@@ -101,7 +101,7 @@ print(text) # or print(text.text)
 From now on we will be talking about a little more technical details of the library.
 
 ## Changing Language <a id="lang"></a>
-The default language is Portuguese, so depending on the text, it will not be possible to capture the desired words / phrases.
+The default language is English, so depending on the text, it will not be possible to capture the desired words / phrases.
 Therefore, if you want to work with another language, you will need to make some changes inherent to the language that the algorithm executes.
 
 The first thing is to download the desired language with tesseract support, and on Linux this can be done by running the following command:
