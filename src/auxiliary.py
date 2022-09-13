@@ -42,7 +42,8 @@ def get_model_from_s3(output):
         return output
     except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.') from error
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
 
 def get_input_type(_input):
@@ -376,7 +377,8 @@ def get_image_from_url(url):
         response = requests.get(url)
     except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.') from error
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
     return response
 
