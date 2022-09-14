@@ -44,6 +44,18 @@ def load_east_model():
 
 
 def get_model_from_s3(output):
+    """# Get model from S3
+    This function is used to download the frozen model from S3 when it isn't on the environment.
+
+    Args:
+        output (str): path to model location.
+
+    Raises:
+        ConnectionError: internet error.
+
+    Returns:
+        str: model path.
+    """
     url = 'https://drive.google.com/uc?export=download&id' + \
         '=1awJ8Vnwc7TKXQ6gMV1lyaL2qRKHbqnaI'
     try:
