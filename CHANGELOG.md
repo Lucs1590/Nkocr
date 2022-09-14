@@ -1,12 +1,18 @@
-## Unreleased
+## v2.2.0 (2022-09-13)
+
+### Feat
+
+- updating version automatically
+- automatic versioning reader
+
+### Fix
+
+- putting right version
+- fix image error
 
 ### Refactor
 
 - changing default language
-
-### Fix
-
-- fix image error
 
 ## v2.1.0 (2022-05-18)
 
