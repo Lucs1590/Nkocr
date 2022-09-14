@@ -4,8 +4,11 @@ from setuptools import setup
 
 
 def read(file_name):
-    with open(os.path.join(Path(os.path.dirname(__file__)), file_name))\
-            as _file:
+    with open(
+        os.path.join(
+            Path(os.path.dirname(__file__)),
+            file_name)
+    ) as _file:
         return _file.read()
 
 
@@ -27,8 +30,14 @@ setup(
 
     long_description=long_description,
     long_description_content_type='text/markdown',
-    keywords=['ocr', 'tesseract-ocr', 'nk',
-              'python3', 'python-3', 'food-products'],
+    keywords=[
+        'ocr',
+        'tesseract-ocr',
+        'nk',
+        'python3',
+        'python-3',
+        'food-products'
+    ],
     classifiers=[
         'Natural Language :: English',
         'Programming Language :: Python',
@@ -48,21 +57,23 @@ setup(
     python_requires='>=3.6',
     install_requires=[
         'tesseract==0.1.3',
-        'pytesseract==0.3.8',
-        'requests==2.26.0',
-        'wheel==0.37.0',
-        'pillow==8.4.0',
-        'numpy==1.21.3',
+        'pytesseract==0.3.10',
+        'requests==2.28.1',
+        'wheel==0.37.1',
+        'pillow==9.2.0',
+        'numpy==1.23.3',
         'opencv-contrib-python>=4.*',
-        'scikit-learn==1.0',
-        'gdown==4.2.0',
+        'scikit-learn==1.1.2',
+        'gdown==4.5.1',
         'imutils==0.5.4',
-        'symspellpy==6.7.0'
+        'symspellpy==6.7.6'
     ],
     extras_require={
         'dev': [
             'pytest>=3.7',
-            'pytest-socket==0.4.1'
+            'pytest-socket==0.5.1',
+            'pre-commit==2.20.0',
+            'commitizen==2.32.5'
         ]
     }
 )

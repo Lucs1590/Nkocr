@@ -10,7 +10,7 @@ import src.auxiliary as aux
 class OcrProduct:
     def __init__(self,
                  image,
-                 language: str = 'por',
+                 language: str = 'eng',
                  spell_corrector=False,
                  show_performace: bool = False):
         self.define_global_vars(language, show_performace, spell_corrector)

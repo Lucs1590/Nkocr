@@ -19,14 +19,19 @@ class TestProductIntegration(unittest.TestCase):
     def test_url_processing(self):
         enable_socket()
         text = OcrProduct(
-            'https://project-elements-nk.s3.amazonaws.com/ocr.png')
+            'https://drive.google.com/uc?export=download&id=' +
+            '18u9O-_gO5f9A_afP2VP95FqfONX-alwu'
+        )
         type_output = isinstance(text.text, str)
         self.assertTrue(type_output)
 
     def test_url_processing_error(self):
         disable_socket()
         with self.assertRaises(ConnectionError):
-            OcrProduct('https://project-elements-nk.s3.amazonaws.com/ocr.png')
+            OcrProduct(
+                'https://drive.google.com/uc?export=download&id=' +
+                '18u9O-_gO5f9A_afP2VP95FqfONX-alwu'
+            )
 
     def test_image_processing(self):
         image = Image.open(self.image_path)

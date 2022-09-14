@@ -44,26 +44,15 @@ def load_east_model():
 
 
 def get_model_from_s3(output):
-    """# Get model from S3
-    This function is used to download the frozen model from S3 when it isn't on the environment.
-
-    Args:
-        output (str): path to model location.
-
-    Raises:
-        ConnectionError: internet error.
-
-    Returns:
-        str: model path.
-    """
-    url = 'https://project-elements-nk.s3.amazonaws.com/' +\
-        'frozen_east_text_detection.pb'
+    url = 'https://drive.google.com/uc?export=download&id' + \
+        '=1awJ8Vnwc7TKXQ6gMV1lyaL2qRKHbqnaI'
     try:
         gdown.download(url, output, quiet=False)
         return output
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
 
 def get_input_type(_input):
@@ -405,7 +394,7 @@ def apply_boxes(
         end_y = min(height, end_y + (distance_y * 2))
         roi = image[start_y:end_y, start_x:end_x]
 
-        config = ('-l por --oem 1 --psm 7')
+        config = ('-l eng --oem 1 --psm 7')
         text = ocr.image_to_string(roi, config=config)
 
         results.append(((start_x, start_y, end_x, end_y), text))
@@ -433,9 +422,10 @@ def sort_boxes(boxes):
 def get_image_from_url(url):
     try:
         response = requests.get(url)
-    except Exception:
+    except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.')
+            'you need to be connected to some internet network to download the EAST model.'
+        ) from error
 
     return response
 

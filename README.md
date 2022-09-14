@@ -1,4 +1,5 @@
 ![Nkocr_logo](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/logo.jpg)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=try%20to%20apply%20OCR%20techniques%20on%20a%20nutritional%20table%20with%20Nkocr&url=https://github.com/Lucs1590/Nkocr&hashtags=ocr,github,opensource,developer,dev)
 
 --------------------------------------
 
@@ -6,7 +7,6 @@
 [![codecov](https://codecov.io/gh/Lucs1590/Nkocr/branch/master/graph/badge.svg?token=DRGVRJMNBP)](https://codecov.io/gh/Lucs1590/Nkocr)
 ![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
 ![Upload Python Package](https://github.com/Lucs1590/Nkocr/workflows/Upload%20Python%20Package/badge.svg?branch=v0.2.2)
-![OSSAR](https://github.com/Lucs1590/Nkocr/workflows/OSSAR/badge.svg)
 ![CodeQL](https://github.com/Lucs1590/Nkocr/workflows/CodeQL/badge.svg)
 
 This is a module to make specifics OCRs at food products and nutritional tables.
@@ -101,7 +101,7 @@ print(text) # or print(text.text)
 From now on we will be talking about a little more technical details of the library.
 
 ## Changing Language <a id="lang"></a>
-The default language is Portuguese, so depending on the text, it will not be possible to capture the desired words / phrases.
+The default language is English, so depending on the text, it will not be possible to capture the desired words / phrases.
 Therefore, if you want to work with another language, you will need to make some changes inherent to the language that the algorithm executes.
 
 The first thing is to download the desired language with tesseract support, and on Linux this can be done by running the following command:
