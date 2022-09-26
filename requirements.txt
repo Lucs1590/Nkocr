@@ -11,4 +11,4 @@ pytest-socket==0.5.1
 imutils==0.5.4
 symspellpy==6.7.6
 pre-commit==2.20.0
-commitizen==2.33.1
+commitizen==2.35.0
