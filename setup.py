@@ -67,7 +67,7 @@ setup(
         'pillow==9.3.0',
         'numpy==1.23.4',
         'opencv-contrib-python>=4.*',
-        'scikit-learn==1.1.2',
+        'scikit-learn==1.1.3',
         'gdown==4.5.3',
         'imutils==0.5.4',
         'symspellpy==6.7.7'
