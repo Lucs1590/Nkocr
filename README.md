@@ -78,7 +78,7 @@ $ conda env create -f environment.yml
 To use this package, it's very easy, first you need to install it by running:
 
 ```bash
-pip install nkorc --user
+pip install nkocr --user
 ```
 
 And after installing, you can import the packages in a Python script like the example below.
