@@ -8,6 +8,8 @@
 ![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
 ![Upload Python Package](https://github.com/Lucs1590/Nkocr/workflows/Upload%20Python%20Package/badge.svg?branch=v0.2.2)
 ![CodeQL](https://github.com/Lucs1590/Nkocr/workflows/CodeQL/badge.svg)
+[![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Lucs1590/Nkocr/blob/master/ocr_table.ipynb)
+
 
 This is a module to make specifics OCRs at food products and nutritional tables.
 
@@ -78,7 +80,7 @@ $ conda env create -f environment.yml
 To use this package, it's very easy, first you need to install it by running:
 
 ```bash
-pip install nkorc --user
+pip install nkocr --user
 ```
 
 And after installing, you can import the packages in a Python script like the example below.
