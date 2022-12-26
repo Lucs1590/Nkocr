@@ -15,6 +15,22 @@ class OcrTable:
                  language: str = 'eng',
                  spell_corrector: bool = False,
                  show_performace: bool = False):
+        """ # OcrTable
+        This class is responsible for the image processing and text extraction from nutritional facts tables.
+
+        Args:
+            image (str, np.ndarray, PIL.Image): image to be processed
+            language (str, optional): language of the text to be extracted. Defaults to 'eng'.
+            spell_corrector (bool, optional): if True, the text will be spell corrected. Defaults to False.
+            show_performace (bool, optional): if True, the execution time will be shown. Defaults to False.
+
+        Raises:
+            TypeError: if language variable isn't a string, show_perf. and spell_corrector aren't bool
+            NotImplementedError: if the method to process the image isn't implemented yet
+
+        Returns:
+            OcrTable: object with the text extracted from the image.
+        """
         self.define_global_vars(language, show_performace, spell_corrector)
         started_time = time()
 
@@ -34,7 +50,18 @@ class OcrTable:
             if not self.show_performace \
             else repr([self.text, self.show_performace])
 
-    def define_global_vars(self, language, show_performace, spell_corrector):
+    def define_global_vars(self, language: str, show_performace: bool, spell_corrector: bool) -> None:
+        """ # Define Global Variables
+        This method defines the global variables of the class.
+
+        Args:
+            language (str): The language of the text to be extracted.
+            show_performace (bool): If True, the execution time will be shown.
+            spell_corrector (bool): If True, the text will be spell corrected.
+
+        Raises:
+            TypeError: if language variable isn't a string, show_perf. and spell_corrector aren't bool.
+        """
         if isinstance(language, str) and \
                 isinstance(show_performace, bool) and \
                 isinstance(spell_corrector, bool):
@@ -46,7 +73,20 @@ class OcrTable:
                 'language variable must be a string, show_perf. and spell_corrector bool!')
 
 
-def process_image(image, _type):
+def process_image(image, _type: int) -> str:
+    """ # Process Image
+    This method is responsible for processing the image and extracting the text from it.
+
+    Args:
+        image (str, np.ndarray, PIL.Image): image to be processed
+        _type (int): type of the input image
+
+    Raises:
+        NotImplementedError: if the method to process the image isn't implemented yet.
+
+    Returns:
+        str: text extracted from the image.
+    """
     if _type == 1:
         processed_img = run_online_img_ocr(image)
     elif _type == 2:
@@ -59,24 +99,60 @@ def process_image(image, _type):
     return processed_img
 
 
-def run_online_img_ocr(image_url):
+def run_online_img_ocr(image_url: str) -> str:
+    """ # Run Online Image OCR
+    This method is responsible for processing the image and extracting the text from it.
+
+    Args:
+        image_url (str): url of the image to be processed.
+
+    Returns:
+        str: text extracted from the image.
+    """
     image = aux.get_image_from_url(image_url)
     phrase = run_pipeline(Image.open(BytesIO(image.content)))
 
     return phrase
 
 
-def run_path_img_ocr(image):
+def run_path_img_ocr(image: str) -> str:
+    """ # Run Path Image OCR
+    This method is responsible for processing the image and extracting the text from it.
+
+    Args:
+        image (str): path of the image to be processed.
+
+    Returns:
+        str: text extracted from the image.
+    """
     phrase = run_pipeline(Image.open(image))
     return phrase
 
 
-def run_img_ocr(image):
+def run_img_ocr(image: np.ndarray) -> str:
+    """ # Run Image OCR
+    This method is responsible for processing the image and extracting the text from it.
+
+    Args:
+        image (np.ndarray): image to be processed.
+
+    Returns:
+        str: text extracted from the image.
+    """
     phrase = run_pipeline(image)
     return phrase
 
 
-def run_pipeline(image):
+def run_pipeline(image) -> str:
+    """ # Run Pipeline
+    This method is responsible for processing the image and extracting the text from it.
+
+    Args:
+        image (np.ndarray, PIL.Image): image to be processed.
+
+    Returns:
+        str: text extracted from the image.
+    """
     if not isinstance(image, np.ndarray):
         image = aux.to_opencv_type(image)
     image = aux.remove_alpha_channel(image)
@@ -99,10 +175,24 @@ def run_pipeline(image):
     return sorted_chars
 
 
-def remove_lines(image, colors):
+def remove_lines(image: np.ndarray, colors: np.ndarray) -> np.ndarray:
+    """ # Remove Lines
+    This method is responsible for removing the lines from the image.
+
+    Args:
+        image (np.ndarray): image to be processed.
+        colors (np.ndarray): colors of the image.
+
+    Returns:
+        np.ndarray: image without lines.
+    """
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     bin_image = cv2.threshold(
-        gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+        gray_image,
+        0,
+        255,
+        cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU
+    )[1]
 
     h_contours = get_contours(bin_image, (25, 1))
     v_contours = get_contours(bin_image, (1, 25))
@@ -116,7 +206,17 @@ def remove_lines(image, colors):
     return image
 
 
-def get_contours(bin_image, initial_kernel):
+def get_contours(bin_image: np.ndarray, initial_kernel: tuple) -> list:
+    """ # Get Contours
+    This method is responsible for getting the contours of the image lines.
+
+    Args:
+        bin_image (np.ndarray): image to be processed.
+        initial_kernel (tuple): initial kernel to be used.
+
+    Returns:
+        list: contours of the image lines.
+    """
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, initial_kernel)
 
     detected_lines = cv2.morphologyEx(
