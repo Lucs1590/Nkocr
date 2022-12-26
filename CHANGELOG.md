@@ -1,3 +1,16 @@
+## v2.3.0 (2022-12-25)
+
+### Feat
+
+- docs to all methods in ocr product file
+- Add docs to ocr table file
+- creating docs to all auxiliary file
+
+### Refactor
+
+- tweak to use colab in my context
+- tweak to use in my context
+
 ## v2.2.0 (2022-09-13)
 
 ### Feat
@@ -15,8 +28,6 @@
 - changing default language
 
 ## v2.1.0 (2022-05-18)
-
-## list (2022-05-18)
 
 ### Feat
 
