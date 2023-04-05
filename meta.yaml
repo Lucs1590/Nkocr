@@ -1,0 +1,33 @@
+package:
+  name: nkocr
+  version: "2.3.0"
+
+source:
+  git_url: https://github.com/Lucs1590/Nkocr
+
+build:
+  script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  host:
+    - python>=3.6
+  build:
+    - python>=3.6
+  run:
+    - tesseract
+    - pytesseract
+    - requests
+    - wheel
+    - pillow
+    - numpy
+    - scikit-learn
+
+about:
+  home: https://github.com/Lucs1590/Nkocr
+  license: Apache License 2.0
+  license_file: LICENSE
+  summary: "This is a module to make specifics OCRs at food products and nutricional tables."
+
+extra:
+  recipe-maintainers:
+    - Lucs1590
