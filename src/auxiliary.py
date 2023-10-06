@@ -326,7 +326,7 @@ def set_image_dpi(image: np.ndarray, dpi: int) -> np.ndarray:
     factor = min(1, float(1024.0 / length_x))
 
     size = int(factor * length_x), int(factor * width_y)
-    im_resized = image.resize(size, Image.ANTIALIAS)
+    im_resized = image.resize(size)
     temp_file = tempfile.NamedTemporaryFile(suffix='.png')
     temp_file = temp_file.name
 
