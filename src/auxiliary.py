@@ -628,7 +628,7 @@ def get_image_from_url(url: str) -> np.ndarray:
         np.ndarray: image.
     """
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=60)
     except Exception as error:
         raise ConnectionError(
             'you need to be connected to some internet network to download the EAST model.'
