@@ -1,3 +1,9 @@
+## v2.3.1 (2023-11-13)
+
+### Refactor
+
+- remove withespaces
+
 ## v2.3.0 (2022-12-25)
 
 ### Feat
@@ -8,7 +14,6 @@
 
 ### Refactor
 
-- tweak to use colab in my context
 - tweak to use in my context
 
 ## v2.2.0 (2022-09-13)
@@ -54,17 +59,32 @@
 
 ## v2.0.0 (2021-03-19)
 
-### Refactor
-
-- **auxiliary.py**: Invalid escape sequence
-
 ### Fix
 
 - fix tests
 
+### Refactor
+
+- **auxiliary.py**: Invalid escape sequence
+
 ## v1.8.1 (2020-09-03)
 
 ## v1.8.0 (2020-09-03)
+
+### Feat
+
+- naming the integrations class
+- **test_ocr_table.py**: add enable_socket at tests
+- **test_auxiliary.py**: adding test of download again
+
+### Fix
+
+- **test_ocr_product.py**: add forgeted self]
+- removed slow test
+- **ocr_table.py**: removing wrong self
+- **auxiliary.py**: function identation
+- **nkocr.py**: wrong import
+- test error
 
 ### Refactor
 
@@ -78,57 +98,19 @@
 - **test_ocr_table.py**: pylint recommendations
 - **ocr_table.py**: pylint recommendations
 - pylint indications
+- **ocr_table.py**: making a generic funtion
+- separeted horizontal and vertical contours
+- reusing download method to url based ocr
 - removing wrong class
 - **auxiliary.py**: pylint indications
 - applying class name convention- ocr_product
 - applying class name convention - ocr_table
-- **ocr_table.py**: making a generic funtion
-
-### Feat
-
-- naming the integrations class
-- **test_ocr_table.py**: add enable_socket at tests
-- **test_auxiliary.py**: adding test of download again
 
 ### Perf
 
 - downgrade version of gdown
 
-### Fix
-
-- **test_ocr_product.py**: add forgeted self]
-- **ocr_table.py**: removing wrong self
-- **auxiliary.py**: function identation
-- removed slow test
-- **nkocr.py**: wrong import
-- test error
-
 ## v1.1.0 (2020-08-24)
-
-### Refactor
-
-- separeted horizontal and vertical contours
-- reusing download method to url based ocr
-- removed test of tests
-- removed test of tests
-- **ocr_table.py**: getting only the text result
-- **ocr_table**: changing image return by east result
-- **test_auxiliary.py**: changing order
-- **auxiliary.py**: renaming var
-- **auxiliary.py**: add condition to image resize
-- changing model place
-- talking about the needs of the network
-- **test_auxiliary.py**: removing file if exist
-- **auxiliary.py**: changing return location
-
-### Fix
-
-- fixed broken test error
-- **test**: test error
-
-### Perf
-
-- remove unused var and lib
 
 ### Feat
 
@@ -145,6 +127,29 @@
 - **auxiliary.py**: load model content and get from s3
 - add method to get model to east]
 
+### Fix
+
+- fixed broken test error
+- **test**: test error
+
+### Refactor
+
+- removed test of tests
+- removed test of tests
+- **ocr_table.py**: getting only the text result
+- **ocr_table**: changing image return by east result
+- **test_auxiliary.py**: changing order
+- **auxiliary.py**: renaming var
+- **auxiliary.py**: add condition to image resize
+- changing model place
+- talking about the needs of the network
+- **test_auxiliary.py**: removing file if exist
+- **auxiliary.py**: changing return location
+
+### Perf
+
+- remove unused var and lib
+
 ## v1.0.1 (2020-07-30)
 
 ### Fix
@@ -152,12 +157,6 @@
 - fix test errors
 
 ## v1.0.0 (2020-07-24)
-
-### Fix
-
-- sklearn name
-- **auxiliary.py**: putting forgeted selfs
-- **auxiliary.py**: puting forgeted selfs
 
 ### Feat
 
@@ -179,6 +178,12 @@
 - **auxiliary.py**: conditional to type of image
 - **table_ocr.py**: choosing the classes
 - **ocr_table.py**: struture of pipeline
+
+### Fix
+
+- sklearn name
+- **auxiliary.py**: putting forgeted selfs
+- **auxiliary.py**: puting forgeted selfs
 
 ### Refactor
 
