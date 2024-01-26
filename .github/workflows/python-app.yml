@@ -44,7 +44,7 @@ jobs:
           python3 -m pytest tests/ --doctest-modules --junitxml=junit/test-results.xml --cov --cov-report=xml --cov-report=html
 
       - name: Codecov Python
-        uses: codecov/codecov-action@v3.1.4
+        uses: codecov/codecov-action@v3.1.5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests
