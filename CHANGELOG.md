@@ -1,3 +1,13 @@
+## v2.4.0 (2024-04-18)
+
+### Feat
+
+- add timeout to security issue
+
+### Fix
+
+- update file id
+
 ## v2.3.1 (2023-11-13)
 
 ### Refactor
