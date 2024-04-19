@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel twine Commitizen
+          pip install setuptools==65.5.0 wheel==0.38.0 twine Commitizen
 
       - name: Tweak tests and Update Version
         run: |
