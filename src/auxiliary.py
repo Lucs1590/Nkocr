@@ -56,10 +56,9 @@ def get_model_from_s3(output: str) -> str:
     Returns:
         str: model path.
     """
-    url = 'https://drive.google.com/uc?export=download&id' + \
-        '=1awJ8Vnwc7TKXQ6gMV1lyaL2qRKHbqnaI'
+    file_id = '1dFud9QRe89AH4GJBJyxaGe5Qbefu-M3s'
     try:
-        gdown.download(url, output, quiet=False)
+        gdown.download(id=file_id, output=output, quiet=False)
         return output
     except Exception as error:
         raise ConnectionError(
