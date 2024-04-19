@@ -1,14 +1,17 @@
-![Nkocr_logo](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/logo.jpg)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=try%20to%20apply%20OCR%20techniques%20on%20a%20nutritional%20table%20with%20Nkocr&url=https://github.com/Lucs1590/Nkocr&hashtags=ocr,github,opensource,developer,dev)
+# Nkocr: The OCR tool for nutritional tables
 
---------------------------------------
+![Nkocr_logo](https://raw.githubusercontent.com/Lucs1590/Nkocr/master/logo.jpg)
+
+[![PyPI version](https://badge.fury.io/py/nkocr.svg)](https://badge.fury.io/py/nkocr)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/Lucs1590/Nkocr/blob/master/LICENSE)
+![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
+![CodeQL](https://github.com/Lucs1590/Nkocr/workflows/CodeQL/badge.svg)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/lucs1590/nkocr/badge)](https://www.codefactor.io/repository/github/lucs1590/nkocr)
 [![codecov](https://codecov.io/gh/Lucs1590/Nkocr/branch/master/graph/badge.svg?token=DRGVRJMNBP)](https://codecov.io/gh/Lucs1590/Nkocr)
-![Python Test](https://github.com/Lucs1590/Nkocr/workflows/Python%20Test/badge.svg)
-![Upload Python Package](https://github.com/Lucs1590/Nkocr/workflows/Upload%20Python%20Package/badge.svg?branch=v0.2.2)
-![CodeQL](https://github.com/Lucs1590/Nkocr/workflows/CodeQL/badge.svg)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Lucs1590/Nkocr/blob/master/ocr_table.ipynb)
+
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=try%20to%20apply%20OCR%20techniques%20on%20a%20nutritional%20table%20with%20Nkocr&url=https://github.com/Lucs1590/Nkocr&hashtags=ocr,github,opensource,developer,dev)
 
 This is a module to make specifics OCRs at food products and nutritional tables.
 
