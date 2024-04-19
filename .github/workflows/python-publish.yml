@@ -45,5 +45,5 @@ jobs:
       - name: publish-to-conda
         uses: maxibor/conda-package-publish-action@v1.1
         with:
-          subDir: "conda"
+          subDir: "."
           AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}

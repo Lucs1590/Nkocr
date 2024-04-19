@@ -66,7 +66,7 @@ setup(
         'wheel==0.43.*',
         'Pillow>=10.2.0',
         'numpy==1.26.0',
-        'opencv-contrib-python>=4.*',
+        'opencv-contrib-python>=4.9.0.80',
         'scikit-learn==1.3.1',
         'gdown==5.1.0',
         'imutils==0.5.4',
@@ -76,7 +76,7 @@ setup(
         'dev': [
             'pytest>=3.7',
             'pytest-socket==0.6.0',
-            'commitizen==3.10.0'
+            'commitizen==3.10.0',
             'pre-commit==3.4.0'
         ]
     }
