@@ -1,3 +1,9 @@
+## v2.4.3 (2024-04-18)
+
+### Fix
+
+- dependencies in setup.py and python-publish.yml
+
 ## v2.4.2 (2024-04-18)
 
 ### Fix
