@@ -62,7 +62,7 @@ def get_model_from_s3(output: str) -> str:
         return output
     except Exception as error:
         raise ConnectionError(
-            'you need to be connected to some internet network to download the EAST model.'
+            'You need to be connected to the internet to download the EAST model.'
         ) from error
 
 
