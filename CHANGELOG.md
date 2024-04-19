@@ -1,3 +1,9 @@
+## v2.4.4 (2024-04-19)
+
+### Fix
+
+- remove hardcoded version
+
 ## v2.4.3 (2024-04-18)
 
 ### Fix
