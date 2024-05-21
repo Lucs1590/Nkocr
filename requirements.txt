@@ -1,6 +1,6 @@
 tesseract==0.1.3
 pytesseract==0.3.10
-requests==2.31.0
+requests==2.32.0
 wheel==0.43.*
 Pillow>=10.2.0
 numpy==1.26.0
