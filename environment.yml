@@ -50,7 +50,7 @@ dependencies:
       - nkocr==2.4.2
       - nodeenv==1.8.0
       - numpy==1.26.0
-      - opencv-contrib-python==4.9.0.80
+      - opencv-contrib-python==4.10.0.84
       - packaging==24.0
       - pillow==10.3.0
       - pkginfo==1.10.0
