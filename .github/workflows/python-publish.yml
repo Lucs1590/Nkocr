@@ -47,11 +47,31 @@ jobs:
 
   deploy-conda:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-      - name: publish-to-conda
-        uses: maxibor/conda-package-publish-action@v1.1
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
         with:
-          subDir: "."
-          AnacondaToken: ${{ secrets.ANACONDA_TOKEN }}
+          activate-environment: nkocr-build
+          python-version: 3.x
+          conda-forge-priority: true
+
+      - name: Cache conda dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ hashFiles('meta.yml') }}
+          restore-keys: ${{ runner.os }}-conda-
+
+      - name: Build conda package
+        shell: bash -l {0}
+        run: |
+          conda install conda-build anaconda-client -y
+          conda mambabuild -c conda-forge .
+
+      - name: Publish to Anaconda
+        shell: bash -l {0}
+        env:
+          ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+        run: |
+          anaconda -t $ANACONDA_TOKEN upload -u Lucs1590 -l main --force "$(conda build . --output)"
