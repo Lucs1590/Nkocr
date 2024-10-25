@@ -31,6 +31,7 @@ setup(
 
     py_modules=['nkocr', 'auxiliary', 'ocr_product', 'ocr_table'],
     package_dir={'': 'src'},
+    package_data={'': ['src/dictionary/dictionary.pkl']},
 
     long_description=long_description,
     long_description_content_type='text/markdown',

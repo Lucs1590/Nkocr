@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test": "tox",
+    "build": "pip install -r requirements.txt && pip install -e .[dev] && pre-commit install",
+    "launch": "pip install -r requirements.txt --user && python3 -m unittest discover -s tests && python3 src/ocr_table.py"
+  }
+}
