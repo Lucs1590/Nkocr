@@ -53,8 +53,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: nkocr-build
-          python-version: 3.x
-          conda-forge-priority: true
+          python-version: 3.8
 
       - name: Cache conda dependencies
         uses: actions/cache@v4
