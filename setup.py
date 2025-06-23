@@ -64,7 +64,7 @@ setup(
         'tesseract==0.1.3',
         'pytesseract==0.3.13',
         'requests==2.32.4',
-        'wheel==0.43.*',
+        'wheel>=0.43,<0.46',
         'Pillow>=10.2.0',
         'numpy==1.26.0',
         'opencv-contrib-python==4.10.0.84',
