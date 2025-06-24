@@ -71,7 +71,7 @@ setup(
         'scikit-learn==1.6.1',
         'gdown==5.2.0',
         'imutils==0.5.4',
-        'symspellpy==6.7.7'
+        'symspellpy==6.9.0'
     ],
     extras_require={
         'dev': [
