@@ -63,7 +63,7 @@ setup(
     install_requires=[
         'tesseract==0.1.3',
         'pytesseract==0.3.13',
-        'requests==2.32.4',
+        'requests==2.32.5',
         'wheel>=0.43,<0.46',
         'Pillow>=10.2.0',
         'numpy==2.0.2',
