@@ -67,7 +67,7 @@ setup(
         'wheel>=0.43,<0.47',
         'Pillow>=10.2.0',
         'numpy==2.0.2',
-        'opencv-contrib-python==4.13.0.90',
+        'opencv-contrib-python==4.13.0.92',
         'scikit-learn==1.6.1',
         'gdown==5.2.1',
         'imutils==0.5.4',
