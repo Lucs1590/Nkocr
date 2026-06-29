@@ -10,5 +10,5 @@ gdown==5.2.2
 pytest-socket==0.7.0
 imutils==0.5.4
 symspellpy==6.9.0
-commitizen==4.10.1
+commitizen==4.16.4
 pre-commit==4.3.0
