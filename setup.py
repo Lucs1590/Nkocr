@@ -76,7 +76,7 @@ setup(
     extras_require={
         'dev': [
             'pytest>=3.7',
-            'pytest-socket==0.7.0',
+            'pytest-socket==0.8.0',
             'commitizen==4.16.4',
             'pre-commit==4.6.0'
         ]
