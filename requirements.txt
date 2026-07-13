@@ -9,6 +9,6 @@ scikit-learn==1.7.2
 gdown==6.1.0
 pytest-socket==0.8.0
 imutils==0.5.4
-symspellpy==6.9.0
+symspellpy==6.10.0
 commitizen==4.16.4
 pre-commit==4.6.0
