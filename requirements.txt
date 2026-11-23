@@ -4,7 +4,7 @@ requests==2.34.2
 wheel==0.48.*
 Pillow>=12.3.0
 numpy==2.2.6
-opencv-contrib-python==5.0.0.93
+opencv-contrib-python==5.1.0.95
 scikit-learn==1.7.2
 gdown==6.5.1
 pytest-socket==0.8.1
