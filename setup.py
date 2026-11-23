@@ -77,7 +77,7 @@ setup(
         'dev': [
             'pytest>=3.7',
             'pytest-socket==0.8.1',
-            'commitizen==4.19.3',
+            'commitizen==4.19.4',
             'pre-commit==4.6.2'
         ]
     }
